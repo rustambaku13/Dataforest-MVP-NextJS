@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 204.3 190.5" style="enable-background:new 0 0 204.3 190.5;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#0E3A49;}
+	.st1{fill:#FFFFFF;}
+	.st2{fill:#EA6D50;}
+	.st3{fill:none;stroke:#FFFFFF;stroke-miterlimit:10;stroke-dasharray:11.9497,19.9162;}
+	.st4{font-family:'ProductSans-Bold';}
+	.st5{font-size:20px;}
+</style>
+<g id="XMLID_625_">
+	<g id="XMLID_612_">
+		<path id="XMLID_615_" class="st0" d="M0,176.4c0,7.7,6.3,14,14,14h176.2c7.7,0,14-6.3,14-14V14H0V176.4z"/>
+		<path id="XMLID_614_" class="st1" d="M190.2,0H14C6.3,0,0,6.3,0,14h204.3C204.3,6.3,198,0,190.2,0z"/>
+	</g>
+	<circle id="XMLID_569_" class="st2" cx="21.3" cy="7.1" r="5.2"/>
+</g>
+<g id="XMLID_27_">
+	<path id="XMLID_75_" class="st3" d="M173.4,144.6h-140c-6.6,0-12-5.4-12-12V55.4c0-6.6,5.4-12,12-12h140c6.6,0,12,5.4,12,12v77.2
+		C185.4,139.2,180,144.6,173.4,144.6z"/>
+</g>
+<text id="XMLID_31_" transform="matrix(1 0 0 1 47.4501 99.71)" class="st1 st4 st5">Upload Data</text>
+</svg>

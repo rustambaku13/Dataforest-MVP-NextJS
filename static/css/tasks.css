@@ -1,0 +1,192 @@
+h1,h2,h3,h4 {
+    margin:0;
+}
+
+.tasks-filter h3{
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color:var(--dataforest-text);
+}
+.tasks-filter{
+    padding-right:1rem;
+}
+.uk-label{
+    padding: 0.2rem 0.4rem;
+    margin:0.2rem 0.1rem;
+}
+
+.tasks-search-result h3{
+    font-weight: 500;
+    color:var(--dataforest-text);
+}
+.task-box{
+    margin-top:35px!important;
+}
+.task-box > a {
+    border-radius: 4px;
+box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+margin-bottom: 30px;
+background-color: #fff;
+transition: 0.3s linear;
+position: relative;
+display: flex;
+justify-content: center;
+cursor: pointer;
+}
+.task-box >a:before{
+    content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 3px;
+height: 100%;
+display: block;
+background: #66676b;
+transition: 0.3s;
+opacity: 0;
+
+}
+
+.task-box > a:hover{
+    transform: translateY(-4px);
+}
+.task-box >a:hover:before{
+background: var(--dataforest_blue);
+opacity: 1;
+}
+.ready_task:hover:before{
+    background: var(--dataforest_cyan_text)!important;
+}
+.task-details-container{
+    padding: 34px 38px;
+flex: 1;
+}
+.task-pricing-container{
+    flex: 0 0 240px;
+background-color: transparent;
+position: relative;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.task-pricing{
+    width: 100%;
+padding: 35px;
+}
+.task-offers{
+    margin-bottom:15px;
+}
+.task-offers strong{
+    display: block;
+color: #333;
+font-size:1.2em;
+font-weight: 600;
+line-height: 24px;
+}
+.task-expand-btn{
+    z-index: 1;
+    display: block;
+text-align: center;
+box-shadow: 0 4px 12px rgba(102,103,107,0.15);
+width: 100%;
+background-color: var(--dataforest_dark_blue);
+color:white;       
+}
+.task-expand-btn span {
+    position: relative;
+    top:2px;
+    opacity: 0;
+    max-width: 0;
+    margin-left:0.5rem;
+    transition: .3s ease;
+    display: inline-block;
+}
+.task-expand-btn:hover > span{
+    max-width: 20px;
+    opacity: 1;
+    transform: translateX(0);
+    
+}
+.task-title{
+
+font-size: 20px;
+color: #333;
+line-height: 28px;
+cursor: pointer;
+font-weight: 600;
+padding-top: 2px;
+transition: 0.3s;
+
+}
+.task-description{
+    margin-top: 15px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    padding-top: 0px;
+    font-weight: 500;
+    color: rgb(102, 102, 102);
+}
+.task-icons{
+    list-style: none;
+padding: 0;
+margin: 3px 0 0 0px;
+}
+.task-icons > li {
+    display: inline-block;
+padding: 0;
+margin: 0;
+margin-right: 10px;
+color: #808080;
+}
+.task-tags{
+    display: block;
+margin: 23px 0 3px;
+}
+
+.task-tags span {
+    
+    
+    transition: .3s;
+font-size: 14.7px;
+border-radius: 4px;
+background-color: var(--dataforest_cyan_text);
+display: inline-block;
+padding: 6px 15px;
+margin: 2px 0;
+line-height: 24px;
+}
+/* .input-tags{
+    position: relative;
+    
+}
+.input-tags >.tag_add {
+    position: absolute;
+    top:0;
+    right:0;
+    height:40px;
+    width:40px;
+    padding:2px;
+    background:transparent;
+    border-radius: 2px;
+}
+
+.input-tags >.tag_add> div {
+    cursor: pointer;
+    position: relative;
+    top:2px;
+    left:2px;
+    width:calc(100% - 5px);
+    height:calc(100% - 5px);
+    background: var(--dataforest_blue);
+    color:white;
+}
+.input-tags >.tag_add p {
+    text-align: center;
+    margin:0;
+    height:100%;
+    padding-top:5px;
+
+} */
+
+/* TASK ADD PAGE  */

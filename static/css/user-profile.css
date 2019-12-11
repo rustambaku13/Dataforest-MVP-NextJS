@@ -1,0 +1,44 @@
+.profile_section_wrapper{
+    background-color:ghostwhite;
+    padding-bottom:2rem;
+}
+.profile_section{
+border-radius: 4px;
+background: white;
+padding:0;
+overflow: hidden;
+}
+
+.info_section{
+height:180px;
+display: flex;
+border-bottom:1px solid #E0E0E0;
+}
+.profile_pic{
+    margin:0;
+    padding:0;
+height:180px;
+display: block;
+}
+
+
+.profile_pic img {
+    height:100%;
+    max-width:240px;
+    min-width:160px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.user_info {
+display: flex;
+flex-direction: column;
+justify-content: space-between;    
+margin-left:20px;
+margin-bottom:0;
+    
+}
+.user_info >p{
+
+}
+.tab_section > .uk-switcher {
+    padding-left:10px;
+}

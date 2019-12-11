@@ -1,0 +1,156 @@
+
+  
+.login-container{
+    background: var(--dataforest_dark);
+    padding:0;
+    min-height:500px;
+   margin-top:50vh;
+    transform: translateY(-50%);
+    
+    
+}
+.other_input{
+    border-color:var(--dataforest_text)!important;
+    color:black!important;
+}
+.input_hover:hover {
+    /* color:gray!important; */
+    /* border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px; */
+}
+.other_input:focus{
+    border-color:var(--dataforest_blue)!important;
+}
+.login-form small{
+    margin-left:auto;
+}
+input[type=password],input[type=text], input[type=email],input[type=password]:focus, input[type=email]:focus,input[type=text]:focus {
+background-color:transparent; 
+color:white;
+border: 0;
+border-radius: 0;
+border-bottom:1px solid #ced4da;
+transition: all .5s ease;
+}
+input[type=password]:focus, input[type=email]:focus,input[type=text]:focus{
+    border-bottom:1px solid var(--dataforest_blue);
+}
+.login-form{
+    /* box-shadow: -1px 0 10px 1px lightslategrey; */
+}
+.login-slider{
+    
+    background-color: var(--dataforest_smoke);
+    
+}
+.img-center{
+    position: relative;
+    left:50%;
+    transform: translateX(-50%);
+}
+body {
+    background-image: linear-gradient(to bottom right,var(--dataforest_blue), var(--dataforest_dark));
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;  
+    height: 100%;
+    
+}
+
+
+
+    /* asdasd */
+
+    /* use a hand cursor intead of arrow for the action buttons */
+.filepond--file-action-button {
+    cursor: pointer;
+}
+
+/* the text color of the drop label*/
+
+
+/* underline color for "Browse" button */
+
+
+/* the background color of the filepond drop area */
+.filepond--panel-root {
+    background-color: #eee;
+}
+
+/* the border radius of the drop area */
+.filepond--panel-root {
+    border-radius: 0.5em;
+}
+
+/* the border radius of the file item */
+.filepond--item-panel {
+    /* border-radius: 0.5em; */
+}
+
+/* the background color of the file and file panel (used when dropping an image) */
+.filepond--item-panel {
+    background-color: #555;
+}
+
+/* the background color of the drop circle */
+.filepond--drip-blob {
+    background-color: #999;
+}
+
+/* the background color of the black action buttons */
+.filepond--file-action-button {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* the icon color of the black action buttons */
+.filepond--file-action-button {
+    color: white;
+}
+
+/* the color of the focus ring */
+.filepond--file-action-button:hover,
+.filepond--file-action-button:focus {
+    box-shadow: 0 0 0 0.125em rgba(255, 255, 255, 0.9);
+}
+
+/* the text color of the file status and info labels */
+.filepond--file {
+    color: white;
+}
+.filepond--drop-label{
+    color:lightgray!important;
+}
+/* error state color */
+[data-filepond-item-state*='error'] .filepond--item-panel,
+[data-filepond-item-state*='invalid'] .filepond--item-panel {
+    background-color: red;
+}
+
+[data-filepond-item-state='processing-complete'] .filepond--item-panel {
+    background-color: green;
+    
+}
+
+/* bordered drop area */
+.filepond--panel-root {
+    background-color:  var(--dataforest_dark)!important;
+    border: 1px solid var(--dataforest_dark);
+    
+}
+
+.error-modal  {
+    top:50%;
+    left:50%;
+    display:block;
+    height:auto;
+    bottom:auto;
+}
+.error-modal .modal-body{
+    max-height:60vh;
+    overflow: auto;
+}
+@media (max-width:1200px){
+    .other_input{
+        margin-bottom:1.5rem;
+    }
+}

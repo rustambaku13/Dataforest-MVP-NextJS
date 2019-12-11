@@ -1,0 +1,67 @@
+body {
+    /* background: var(--dataforest_dark_purple);  */
+}
+.add_task_form{
+    border-radius: 5px;
+    min-height:70vh;
+    /* box-shadow: 0px 2px 7px rgba(0,0,0,0.2); */
+}
+.add_task_form label {
+    /* color:whitesmoke; */
+    font-size:1.1em;
+}
+
+.add_task_form input[type=text],.add_task_form input[type=number],.add_task_form select,.add_task_form textarea,.chosen-choices {
+    /* border:1px solid black; */
+    /* color:whitesmoke!important; */
+    /* color:black; */
+    /* border-color:transparent; */
+    
+}
+.chosen-container.chosen-container-single {
+    width:100%!important;
+}
+.footer-area{
+    z-index: -1;
+}
+#label_table td:first-child{
+    width:100px;
+    
+    cursor: pointer;
+    
+    background:transparent;
+    padding:0.5rem;
+    border:2px dashed var(--dataforest_smoke);
+    transition: .2s ease all;
+    
+}
+#label_table td:first-child:hover >p{
+color:var(--dataforest_blue);
+
+}
+#label_table td:first-child:hover {
+    border-color:var(--dataforest_blue);
+}
+#label_table td:first-child p{
+    line-height:257px;
+    font-size:1.3em;
+    text-align: center;
+    transition: .2s ease color;
+    color:var(--dataforest_smoke);
+}
+#label_table td{
+    min-width:200px;
+}
+#label_table input {
+    background:transparent;
+    color:whitesmoke;
+}
+#salam > li{
+    height:100%;
+}
+.chosen-container-single{
+    color:whitesmoke;
+}
+#salam li:nth-child(2) .add_task_form_item{
+    height:500px;
+}
