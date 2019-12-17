@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/Link';
-import { MenuBar, ImportJS, Footer } from '../views/snippet';
+import { MenuBar, Footer } from '../views/snippet';
 
 const Home = () => (
   <div>
@@ -12,11 +12,10 @@ const Home = () => (
       <meta name="description" content="Dataforest your data marketplace " />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
-    <MenuBar isAuthenticated={false} />
     <section className="home_banner_area">
       <div className="banner_inner d-flex align-items-center">
         <div className="overlay" />
-        <div className="container">
+        <div style={{ width: "100%", paddingRight: 15, paddingLeft: 15, marginRight: "auto", marginLeft: "auto"}}>
           <div className="row">
             <div className="col-lg-6 offset-lg-6 col-xl-5 offset-xl-7">
               <div className="banner_content">
@@ -111,15 +110,7 @@ const Home = () => (
         </div>
       </section>
       <Footer />
-      <ImportJS />
     </section>
-    <style jsx>{`
-      body{
-        background-image: url("/static/assets/forest_bg_1.jpg");
-        background-repeat: no-repeat;
-        background-size: contain;
-      }
-    `}</style>
   </div>
 )
 

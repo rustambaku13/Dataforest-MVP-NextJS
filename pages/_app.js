@@ -1,26 +1,21 @@
 import React from 'react';
 import Head from 'next/head';
-import { ImportLink, ImportJS } from '../views/snippet';
+import { Provider } from 'react-redux';
+import Navigation from '../components/Navigation';
+import store from '../store';
+import 'antd/dist/antd.css';
 
 function MyApp({ Component, pageProps }) {
   return (
-    // <Provider store={store}>
-    <>
+    <Provider store={store}>
       <Head>
-        <ImportLink />
-        <ImportJS />
+        <link rel="stylesheet" href="/static/css/style.css" />
+        <link rel="stylesheet" href="/static/css/themify-icons.css" />
       </Head>
 
+      <Navigation />
       <Component {...pageProps} />
-      <style jsx global>{`
-      body {
-        background-image: url("/static/assets/forest_bg_1.jpg");
-        background-repeat: no-repeat;
-        background-size: contain;
-      }
-    `}</style>
-    </>
-    // </Provider>
+    </Provider>
   )
 }
 

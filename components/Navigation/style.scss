@@ -1,0 +1,41 @@
+$maxWidth: 1033px;
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+
+  > .title {
+    width: 120px;
+    color: grey;
+    float: left;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .header-menu-icon {
+    display: none;
+
+    @media screen and (max-width: $maxWidth) {
+      display: block;
+    }
+  }
+
+  .nav-sign {
+    display: flex;
+    margin-left: 60px;
+    @media screen and (max-width: $maxWidth) {
+      display: none;
+    }
+  }
+}
+
+.header-menu {
+  @media screen and (max-width: $maxWidth) {
+    display: none;
+  }
+}

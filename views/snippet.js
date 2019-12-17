@@ -15,9 +15,10 @@ export const ImportLink = () => (
 
 export const ImportJS = () => (
   <>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossOrigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossOrigin></script>
+    <script src="/static/js/jquery-3.4.1.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
   </>
 )
 
