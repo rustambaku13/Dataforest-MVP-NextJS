@@ -1,0 +1,51 @@
+.signup-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .signup-container {
+    width: 100%;
+    max-width: 900px;
+    margin-top: 55px;
+
+    > form {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .profile {
+      width: 40%;
+      padding: 45px 25px;
+      background: white;
+
+      .picture-uploader {
+        .avatar-uploader {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 45px;
+          > .ant-upload {
+            width: 200px;
+            height: 200px;
+          }
+        }
+      }
+    }
+    .credentials {
+      width: 60%;
+      padding: 25px 75px;
+      background: #25283f;
+
+      .logo {
+        text-align: center;
+        margin-bottom: 32px;
+      }
+
+      .ant-form-item-label > label {
+        color: white;
+      }
+    }
+  }
+}

@@ -56,7 +56,7 @@ function Login(props) {
                 {getFieldDecorator('username', {
                   validateTrigger: 'onBlur',
                   rules: [
-                    { validator: validators.validateUsername }
+                    { validator: validators.validateName }
                   ],
                   initialValue: ''
                 })(
@@ -105,7 +105,7 @@ function Login(props) {
             </div>
           </Form>
           <p style={{ color: 'white', fontSize: '1.2em' }}>
-            Don't have an account? <Link href="signup"><a style={{ color: '#007bff' }}>SIGN UP</a></Link>
+            Don't have an account? <Link href="/signup"><a style={{ color: '#007bff' }}>SIGN UP</a></Link>
           </p>
         </div>
       </div>

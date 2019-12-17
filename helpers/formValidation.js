@@ -1,11 +1,18 @@
 import validator from 'validator';
 
-export const validateUsername = (rule, value, callback) => {
+export const validateName = (rule, value, callback) => {
   if (validator.isEmpty(value)) {
     callback('Please provide your username!');
   }
   if (value.length < 3 || value.length > 15) {
     callback('Name has to be between 3 and 15 characters!');
+  }
+  callback();
+}
+
+export const compareToFirstPassword = (password) => (rule, value, callback) => {
+  if (value && value !== password) {
+    callback('Two passwords that you entered are inconsistent!');
   }
   callback();
 }
@@ -28,6 +35,16 @@ export const validateToNextPassword = (rule, value, callback) => {
   }
   else if (!value.match(uppercase)) {
     callback('Password needs to contain at least one uppercase letter!');
+  }
+  callback();
+}
+
+export const validateEmail = (rule, value, callback) => {
+  if (validator.isEmpty(value)) {
+    callback("Please provide your email!");
+  }
+  else if (!validator.isEmail(value)) {
+    callback('Email is not valid!');
   }
   callback();
 }
