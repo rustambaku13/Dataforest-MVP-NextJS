@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import Navigation from '../components/Navigation';
 import store from '../store';
 import 'antd/dist/antd.css';
+import '../static/styles/index.scss';
 
 function MyApp({ Component, pageProps }) {
   return (

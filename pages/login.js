@@ -1,9 +1,34 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import Head from 'next/head';
-import Link from 'next/Link';
-import { MenuBar } from '../views/snippet';
+import Link from 'next/link';
+import { Form, Input, Icon, Tooltip, Button } from 'antd';
+import * as validators from '../helpers/formValidation';
+import { setAuthUser } from '../actions';
+import '../static/styles/login.scss';
 
-function Login() {
+const FormItem = Form.Item;
+
+function Login(props) {
+  const dispatch = useDispatch();
+
+  function handleSubmit(e) {
+    console.log('submit')
+    e.preventDefault();
+
+    const { username, password } = props.form.getFieldsValue();
+
+    dispatch({ type: "SET_AUTH_USER", payload: { user: username } });
+  }
+
+  const {
+    getFieldDecorator,
+    getFieldError,
+  } = props.form;
+
+  const usernameError = getFieldError('username');
+  const passwordError = getFieldError('password');
+
   return (
     <>
       <Head>
@@ -12,60 +37,90 @@ function Login() {
         <title>Dataforest: Your Single Venue for the Data that you need!</title>
         <meta name="description" content="Dataforest your data marketplace" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="/static/css/login.css" />
       </Head>
-      {/* <MenuBar isAuthenticated={false} /> */}
-      <div style={{margin: 0}} className="row">
-        <div style={{padding: 0}} className="container">
-          <div className=" row login-container">
-            {'{'}/* <div className="col-md-4 login-slider ">
-              <div style={{height: '100%'}} className="swiper-container">
-                <div className="swiper-wrapper">
-                  <div className="swiper-slide">Slide 1</div>
-                  <div className="swiper-slide">Slide 2</div>
-                  <div className="swiper-slide">Slide 2</div>
-                </div>
-                <div className="swiper-pagination" />
-              </div>
-            </div> */{'}'}
-            <div className="col-md-12 login-form">
-              <a href="/"><img src="/static/assets/LOGO2.png" height={70} className="img-center mt-3" /></a>
-              <form action="#" method="POST" className="row col-md-10 offset-md-1 mt-5">
-                {'{'}/* {'{'}% csrf_token %{'}'} */{'}'}
-                <div className="form-group mb-5 col-12">
-                  <label style={{color: 'white'}} htmlFor="exampleInputPassword1">{'{'}/*{'{'} form.username.label {'}'}*/{'}'}</label>
-                  {'{'}/*{'{'} form.username {'}'}*/{'}'}
-                  <small className="form_error">{'{'}/*{'{'} form.username.errors {'}'}*/{'}'}</small>
-                </div>
-                <div className="form-group mb-5 col-12">
-                  <label style={{color: 'white'}} htmlFor="exampleInputPassword1">{'{'}/*{'{'} form.password.label {'}'}*/{'}'}</label>
-                  {'{'}/*{'{'} form.password {'}'}*/{'}'}
-                  <small className="form_error">{'{'}/*{'{'} form.email.errors {'}'}*/{'}'}</small>
-                </div>
-                <small style={{fontSize: '1.1em'}}><a href="#">Forgot your password ?</a></small>
-                <div className="col-12">
-                  <div style={{width: '100%'}} className="mb-3 mt-3">
-                    <input type="submit" defaultValue="LOG IN" className="dataforest_button_success  uk-button" />
-                  </div>
-                  <small className="mt-3" style={{fontSize: '1.2em', color: 'white'}}>Don't have an account? <a href="/signup">SIGN UP</a></small>
-                </div>
-              </form>
+
+      <div className="login-page">
+        <div className="login-container">
+          <Link href="/">
+            <div className="logo">
+              <img src="/static/assets/LOGO2.png" height="70" style={{ cursor: 'pointer' }} />
             </div>
-          </div>
-        </div>
-        <div>
+          </Link>
+          <Form onSubmit={handleSubmit}>
+            <div className="login-form">
+              <FormItem
+                validateStatus={usernameError ? 'error' : ''}
+                help={''}
+                label="Username"
+              >
+                {getFieldDecorator('username', {
+                  validateTrigger: 'onBlur',
+                  rules: [
+                    { validator: validators.validateUsername }
+                  ],
+                  initialValue: ''
+                })(
+                  <Tooltip placement="top" title={usernameError} trigger="focus">
+                    <Input
+                      size="large"
+                      type="text"
+                      placeholder="Username"
+                      prefix={<Icon type="user" />}
+                      required
+                    />
+                  </Tooltip>
+                )}
+              </FormItem>
+
+              <FormItem
+                validateStatus={passwordError ? 'error' : ''}
+                help={''}
+                label="Password"
+              >
+                {getFieldDecorator('password', {
+                  validateTrigger: 'onBlur',
+                  rules: [
+                    { validator: validators.validateToNextPassword }
+                  ],
+                  initialValue: ''
+                })(
+                  <Tooltip placement="top" title={passwordError} trigger="focus">
+                    <Input.Password
+                      size="large"
+                      onChange={e => props.form.setFieldsValue({ password: e.target.value })}
+                      type="password"
+                      placeholder="Password"
+                      prefix={<Icon type="lock" />}
+                      required
+                    />
+                  </Tooltip>
+                )}
+              </FormItem>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <Link href="forgot-password"><a style={{ fontSize: '1.1em', color: '#007bff' }}>Forgot your password?</a></Link>
+            </div>
+            <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+              <Button type="primary" htmlType="submit">LOG IN</Button>
+            </div>
+          </Form>
+          <p style={{ color: 'white', fontSize: '1.2em' }}>
+            Don't have an account? <Link href="signup"><a style={{ color: '#007bff' }}>SIGN UP</a></Link>
+          </p>
         </div>
       </div>
-      {/* <script>
-        var swiper = new Swiper('.swiper-container', {
-          pagination: {
-          el: '.swiper-pagination',
-      dynamicBullets: true,
-    },
-  });
-        </script> */}
+      <style scoped>{`
+      body {
+        background-image: linear-gradient(to bottom right,var(--dataforest_blue), var(--dataforest_dark));
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100%;
+        z-index: -1;
+      }
+    `}</style>
     </>
   )
 }
 
-export default Login;
+export default Form.create()(Login);

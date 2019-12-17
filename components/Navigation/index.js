@@ -92,10 +92,10 @@ function renderNonAuth() {
       </ul>
       <div className="nav-sign">
         <ul>
-          <li className="nav-item"><Link href='/sign-in'><a className="nav-link">Sign In</a></Link></li>
+          <li className="nav-item"><Link href='/login'><a className="nav-link">Sign In</a></Link></li>
         </ul>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Link href='/register'><Button>Register</Button></Link>
+          <Link href='/signup'><Button>Register</Button></Link>
         </div>
       </div>
 
@@ -114,8 +114,8 @@ function renderNonAuth() {
             <Item><Link href='/explore'><a>Explore</a></Link></Item>
             <Item><Link href='/about-us'><a>About Us</a></Link></Item>
             <Item><Link href='/contact'><a>Contact</a></Link></Item>
-            <Item><Link href='/sign-in'><a>Sign In</a></Link></Item>
-            <Item><Link href='/register'><a>Register</a></Link></Item>
+            <Item><Link href='/login'><a>Sign In</a></Link></Item>
+            <Item><Link href='/signup'><a>Register</a></Link></Item>
           </Menu>
         </Drawer>
       </div>

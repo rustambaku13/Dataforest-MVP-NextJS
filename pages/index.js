@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/Link';
-import { MenuBar, Footer } from '../views/snippet';
+import { Footer } from '../views/snippet';
 
 const Home = () => (
   <div>

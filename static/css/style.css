@@ -86,7 +86,7 @@ body {
   font-size: 14px;
   
   background-repeat:no-repeat; 
-  font-family: "Rajdhani", sans-serif;
+  font-family: "Rajdhani", sans-serif !important;
   font-weight: normal;
   color: var(--dataforest_text); }
 
