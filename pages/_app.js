@@ -3,10 +3,14 @@ import Head from 'next/head';
 import { Provider } from 'react-redux';
 import Navigation from '../components/Navigation';
 import store from '../store';
+import withRedux from "next-redux-wrapper";
 import 'antd/dist/antd.css';
 import '../static/styles/index.scss';
+import { autoLogin } from '../services/user';
+import { setAuthUser } from '../actions';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, store }) {
+
   return (
     <Provider store={store}>
       <Head>
@@ -20,7 +24,8 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-MyApp.getInitialProps = async ({ Component, ctx }) => {
+MyApp.getInitialProps = async (props) => {
+  const { Component, ctx } = props;
   let pageProps = {};
 
   // call getInitialProps if any
@@ -28,7 +33,11 @@ MyApp.getInitialProps = async ({ Component, ctx }) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
+  // const data = await autoLogin(ctx);
+  // console.log(data)
+  // ctx.store.dispatch(setAuthUser(data));
+
   return { pageProps };
 }
 
-export default MyApp;
+export default withRedux(() => store)(MyApp);

@@ -2,9 +2,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Form, Input, Icon, Tooltip, Button } from 'antd';
+import Router from 'next/router';
+import { Form, Input, Icon, Tooltip, Button, message } from 'antd';
 import * as validators from '../helpers/formValidation';
 import { setAuthUser } from '../actions';
+import { login } from '../services/user';
 import '../static/styles/login.scss';
 
 const FormItem = Form.Item;
@@ -12,13 +14,27 @@ const FormItem = Form.Item;
 function Login(props) {
   const dispatch = useDispatch();
 
-  function handleSubmit(e) {
-    console.log('submit')
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    const { username, password } = props.form.getFieldsValue();
+    props.form.validateFields(
+      async (err) => {
+        if (!err) {
+          try {
+            const { username, password } = props.form.getFieldsValue();
+            console.log({ username, password })
+            const token = await login({ username, password });
 
-    dispatch({ type: "SET_AUTH_USER", payload: { user: username } });
+            dispatch(setAuthUser(token));
+            Router.push('/');
+          }
+          catch (e) {
+            message.error(e.response.data.non_field_errors[0]);
+          }
+        }
+      }
+    )
+
   }
 
   const {
@@ -79,9 +95,9 @@ function Login(props) {
               >
                 {getFieldDecorator('password', {
                   validateTrigger: 'onBlur',
-                  rules: [
-                    { validator: validators.validateToNextPassword }
-                  ],
+                  // rules: [
+                  //   { validator: validators.validateToNextPassword }
+                  // ],
                   initialValue: ''
                 })(
                   <Tooltip placement="top" title={passwordError} trigger="focus">
