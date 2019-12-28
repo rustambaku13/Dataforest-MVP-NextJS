@@ -7,6 +7,7 @@ import { Form, Input, Icon, Tooltip, Button, message } from 'antd';
 import * as validators from '../helpers/formValidation';
 import { setAuthUser } from '../actions';
 import { login, getUserInfo } from '../services/user';
+import useProtectedRoute from '../hooks/useProtectedRoute';
 import '../static/styles/login.scss';
 
 const FormItem = Form.Item;
@@ -14,6 +15,7 @@ const FormItem = Form.Item;
 function Login(props) {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  useProtectedRoute(auth => auth);
 
   async function handleSubmit(e) {
     e.preventDefault();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 import { Layout, Button, Avatar, Drawer, Menu, Dropdown, Icon } from 'antd';
 import cookie from 'js-cookie';
 import AuthRender from '../../components/AuthRender';
@@ -15,6 +15,7 @@ function Navigation() {
   const { authUser } = useSelector(state => state.sessionState);
   const dispatch = useDispatch();
   const [menuVisible, setMenuVisible] = useState(false);
+  const Router = useRouter();
 
   function logout() {
     cookie.remove('token');
@@ -47,11 +48,10 @@ function Navigation() {
           placement="bottomRight"
         >
           <div style={{ marginRight: 24 }}>
-            <Avatar src={authUser.profile_pic} style={{
+            <Avatar shape="square" src={authUser.profile_pic} style={{
               cursor: "pointer",
               margin: "0 0.7em"
             }} />
-            <Icon type="down" style={{ color: '#fff', cursor: "pointer" }} />
           </div>
         </Dropdown>
         <a class="dataforest-coin" href='#'>

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { Form, Input, Icon, Tooltip, Button, Upload } from 'antd';
 import * as validators from '../helpers/formValidation';
+import useProtectedRoute from '../hooks/useProtectedRoute';
 import '../static/styles/signup.scss';
 
 const FormItem = Form.Item;
@@ -16,6 +17,7 @@ function getBase64(img, callback) {
 function Signup(props) {
   const [avatar, setAvatar] = useState("");
   const [imgLoading, setImgLoading] = useState(false);
+  useProtectedRoute(auth => auth);
 
   function handleSubmit(e) {
     console.log('submit')
