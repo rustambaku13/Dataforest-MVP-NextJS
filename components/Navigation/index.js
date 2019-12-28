@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
-import { Layout, Button, Avatar, Drawer, Menu } from 'antd';
+import { Layout, Button, Avatar, Drawer, Menu, Dropdown, Icon, Divider } from 'antd';
 import cookie from 'js-cookie';
 import AuthRender from '../../components/AuthRender';
 import { setAuthUser } from '../../actions';
@@ -11,14 +11,26 @@ const { Header } = Layout;
 const { Item } = Menu;
 
 function Navigation() {
+  const { authUser } = useSelector(state => state.sessionState);
   const dispatch = useDispatch();
   const [menuVisible, setMenuVisible] = useState(false);
 
   function logout() {
-    console.log('logout')
     cookie.remove('token');
     dispatch(setAuthUser(null));
   }
+
+  const fontStyle = { fontSize: 18 }
+
+  const menuOverlay = () => (
+    <Menu style={{ display: 'flex', flexDirection: 'column', fontSize: 18 }}>
+      <p style={{ fontSize: 18, padding: '5px 12px', margin: 0, fontWeight: 'bold' }}>{authUser.first_name} {authUser.last_name}</p>
+      <Item style={fontStyle} key="profile"><Link href={`/user/${authUser.id}`}>Profile</Link></Item>
+      <Item style={fontStyle} key="setting"><Link href='/settings'>Settings</Link></Item>
+      <Item style={fontStyle} key="topup"><Link href="/top-up">Top-Up</Link></Item>
+      <Item style={fontStyle} key="logout" onClick={logout}><Link href='/'>Log out</Link></Item>
+    </Menu>
+  )
 
   const renderAuth = () => (
     <ul className="header-menu">
@@ -27,7 +39,25 @@ function Navigation() {
       <li className="nav-item"><Link href='/tasks'><a className="nav-link">Tasks</a></Link></li>
       <li className="nav-item"><Link href='#'><a className="nav-link">Datasets</a></Link></li>
       <li className="nav-item"><Link href='#'><a className="nav-link">Models</a></Link></li>
-      <li className="nav-item"><Link href='/'><a className="nav-link" onClick={logout}>Logout</a></Link></li>
+      <li className="nav-item" style={{ display: 'flex', alignItems: 'center' }}>
+        <Dropdown
+          overlay={menuOverlay()}
+          trigger={['click']}
+          placement="bottomRight"
+        >
+          <div style={{ marginRight: 24 }}>
+            <Avatar src={authUser.profile_pic} style={{
+              cursor: "pointer",
+              margin: "0 0.7em"
+            }} />
+            <Icon type="down" style={{ color: '#fff', cursor: "pointer" }} />
+          </div>
+        </Dropdown>
+        <a class="dataforest-coin" href='#'>
+          <label style={{ marginRight: 10 }}>{authUser.money.toFixed(2)}</label>
+          <img src="/static/fonts/coins-solid.svg" />
+        </a>
+      </li>
     </ul>
   );
 
