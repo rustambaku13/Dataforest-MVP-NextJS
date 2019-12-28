@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import '../static/styles/login.scss';
 const FormItem = Form.Item;
 
 function Login(props) {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   async function handleSubmit(e) {
@@ -21,15 +22,18 @@ function Login(props) {
       async (err) => {
         if (!err) {
           try {
+            setLoading(true);
             const { username, password } = props.form.getFieldsValue();
-            console.log({ username, password })
             const token = await login({ username, password });
             const info = await getUserInfo(null, token);
+
+            setLoading(false);
 
             dispatch(setAuthUser(info));
             Router.push('/');
           }
           catch (e) {
+            setLoading(false);
             message.error(e.response.data.non_field_errors[0]);
           }
         }
@@ -118,7 +122,7 @@ function Login(props) {
               <Link href="forgot-password"><a style={{ fontSize: '1.1em', color: '#007bff' }}>Forgot your password?</a></Link>
             </div>
             <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-              <Button type="primary" htmlType="submit">LOG IN</Button>
+              <Button type="primary" htmlType="submit" loading={loading}>LOG IN</Button>
             </div>
           </Form>
           <p style={{ color: 'white', fontSize: '1.2em' }}>

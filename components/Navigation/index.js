@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
-import { Layout, Button, Avatar, Drawer, Menu, Dropdown, Icon, Divider } from 'antd';
+import Router from 'next/router';
+import { Layout, Button, Avatar, Drawer, Menu, Dropdown, Icon } from 'antd';
 import cookie from 'js-cookie';
 import AuthRender from '../../components/AuthRender';
 import { setAuthUser } from '../../actions';
@@ -106,7 +107,7 @@ function Navigation() {
 
   return (
     <Layout>
-      <Header className="nav-header">
+      <Header className="nav-header" style={{ background: authUser && Router.pathname !== '/' ? '#3C3C40' : 'rgba(0, 0, 0, 0.5)' }}>
         <div className="title">
           <Link href="/">
             <a className="navbar-brand logo_h">
@@ -144,9 +145,6 @@ function Navigation() {
           padding: 0px;
           display: inline-block;
           font-size: 18px;
-        }
-        .ant-layout-header {
-          background: rgba(0,0,0,0.5);
         }
         `}
       </style>
