@@ -1,85 +1,37 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Link from 'next/link';
 import { Layout, Button, Avatar, Drawer, Menu } from 'antd';
+import cookie from 'js-cookie';
+import AuthRender from '../../components/AuthRender';
+import { setAuthUser } from '../../actions';
 import './style.scss';
 
 const { Header } = Layout;
 const { Item } = Menu;
 
 function Navigation() {
-  const { authUser } = useSelector(state => state.sessionState);
+  const dispatch = useDispatch();
+  const [menuVisible, setMenuVisible] = useState(false);
 
-  return (
-    <Layout>
-      <Header className="nav-header">
-        <div className="title">
-          <Link href="/">
-            <a className="navbar-brand logo_h">
-              <img src="static/assets/logo2.png" height={60} alt="Dataforest" />
-            </a>
-          </Link>
-        </div>
-        <div style={{ display: 'flex' }}>
-          {authUser ? renderAuth() : renderNonAuth()}
-        </div>
-      </Header>
-      <style scoped>
-        {`
-        ul {
-          display: flex;
-          flex-direction: row;
-          padding-left: 0;
-          margin-bottom: 0;
-          list-style: none;
-          flex-wrap: wrap;
-        }
-        li.nav-item {
-          margin-right: 45px;
-        }
-        a {
-          color: white;
-        }
-        a.nav-link {
-          cursor: pointer;
-          font: 400 12px/80px "Rajdhani", sans-serif;
-          text-transform: capitalize;
-          padding: 0px;
-          display: inline-block;
-          font-size: 18px;
-        }
-        .ant-layout-header {
-          background: rgba(0,0,0,0.5);
-        }
-        `}
-      </style>
-    </Layout>
-  )
-}
+  function logout() {
+    console.log('logout')
+    cookie.remove('token');
+    dispatch(setAuthUser(null));
+  }
 
-const avatarStyle = {
-  cursor: "pointer",
-  margin: "0 0.7em",
-  color: 'white',
-  background: 'transparent'
-}
-
-function renderAuth() {
-  return (
+  const renderAuth = () => (
     <ul className="header-menu">
       <li className="nav-item"><Link href='/'><a className="nav-link">Home</a></Link></li>
       <li className="nav-item"><Link href='/feed'><a className="nav-link">Feed</a></Link></li>
       <li className="nav-item"><Link href='/tasks'><a className="nav-link">Tasks</a></Link></li>
       <li className="nav-item"><Link href='#'><a className="nav-link">Datasets</a></Link></li>
       <li className="nav-item"><Link href='#'><a className="nav-link">Models</a></Link></li>
+      <li className="nav-item"><Link href='/'><a className="nav-link" onClick={logout}>Logout</a></Link></li>
     </ul>
-  )
-}
+  );
 
-function renderNonAuth() {
-  const [menuVisible, setMenuVisible] = useState(false);
-
-  return (
+  const renderNonAuth = () => (
     <>
       <ul className="header-menu">
         <li className="nav-item"><Link href='/'><a className="nav-link">Home</a></Link></li>
@@ -120,7 +72,63 @@ function renderNonAuth() {
         </Drawer>
       </div>
     </>
+  );
+
+  return (
+    <Layout>
+      <Header className="nav-header">
+        <div className="title">
+          <Link href="/">
+            <a className="navbar-brand logo_h">
+              <img src="static/assets/logo2.png" height={60} alt="Dataforest" />
+            </a>
+          </Link>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <AuthRender
+            renderAuth={renderAuth}
+            renderNonAuth={renderNonAuth}
+          />
+        </div>
+      </Header>
+      <style scoped>
+        {`
+        ul {
+          display: flex;
+          flex-direction: row;
+          padding-left: 0;
+          margin-bottom: 0;
+          list-style: none;
+          flex-wrap: wrap;
+        }
+        li.nav-item {
+          margin-right: 45px;
+        }
+        a {
+          color: white;
+        }
+        a.nav-link {
+          cursor: pointer;
+          font: 400 12px/80px "Rajdhani", sans-serif;
+          text-transform: capitalize;
+          padding: 0px;
+          display: inline-block;
+          font-size: 18px;
+        }
+        .ant-layout-header {
+          background: rgba(0,0,0,0.5);
+        }
+        `}
+      </style>
+    </Layout>
   )
+}
+
+const avatarStyle = {
+  cursor: "pointer",
+  margin: "0 0.7em",
+  color: 'white',
+  background: 'transparent'
 }
 
 export default Navigation;

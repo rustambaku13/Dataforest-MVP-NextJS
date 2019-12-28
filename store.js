@@ -8,4 +8,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 const store = createStore(rootReducer, applyMiddleware(...middleWares));
 
+export const makestore = initialState => {
+  return createStore(rootReducer, initialState, applyMiddleware(...middleWares));
+};
+
 export default store;

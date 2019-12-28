@@ -2,15 +2,14 @@ import React from 'react';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
 import Navigation from '../components/Navigation';
-import store from '../store';
+import { makestore } from '../store';
 import withRedux from "next-redux-wrapper";
 import 'antd/dist/antd.css';
 import '../static/styles/index.scss';
-import { autoLogin } from '../services/user';
+import { getUserInfo } from '../services/user';
 import { setAuthUser } from '../actions';
 
 function MyApp({ Component, pageProps, store }) {
-
   return (
     <Provider store={store}>
       <Head>
@@ -33,11 +32,10 @@ MyApp.getInitialProps = async (props) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  // const data = await autoLogin(ctx);
-  // console.log(data)
-  // ctx.store.dispatch(setAuthUser(data));
+  const data = await getUserInfo(ctx);
+  ctx.store.dispatch(setAuthUser(data));
 
   return { pageProps };
 }
 
-export default withRedux(() => store)(MyApp);
+export default withRedux(makestore)(MyApp);

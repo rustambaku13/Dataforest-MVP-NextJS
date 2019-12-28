@@ -3,12 +3,12 @@ import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
 import { base_url } from '../constants/api';
 
-export async function autoLogin(ctx) {
+export async function getUserInfo(ctx, tk) {
   try {
-    const { token } = nextCookie(ctx);
+    const token = tk ? tk : nextCookie(ctx).token;
 
     if (token) {
-      const { data } = await axios.get(`${base_url}/users/`, {
+      const { data } = await axios.get(`${base_url}/users/me/`, {
         headers: {
           'Authorization': `Token ${token}`
         }
@@ -16,7 +16,7 @@ export async function autoLogin(ctx) {
       return data;
     }
 
-    return {};
+    return null;
     
   }
   catch (e) {
