@@ -21,7 +21,7 @@ $maxWidth: 1033px;
     display: none;
 
     @media screen and (max-width: $maxWidth) {
-      display: block;
+      display: flex;
     }
   }
 
@@ -32,10 +32,10 @@ $maxWidth: 1033px;
       display: none;
     }
   }
-}
-
-.header-menu {
-  @media screen and (max-width: $maxWidth) {
-    display: none;
+  
+  .header-menu {
+    @media screen and (max-width: $maxWidth) {
+      display: none;
+    }
   }
 }

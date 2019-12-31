@@ -1,0 +1,13 @@
+$maxWidth: 1033px;
+
+.filter-container {
+  max-width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: $maxWidth) {
+    display: flex;
+    flex-direction: column;
+  }
+}

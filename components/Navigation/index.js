@@ -35,13 +35,33 @@ function Navigation() {
   )
 
   const renderAuth = () => (
-    <ul className="header-menu">
-      <li className="nav-item"><Link href='/'><a className="nav-link">Home</a></Link></li>
-      <li className="nav-item"><Link href='/feed'><a className="nav-link">Feed</a></Link></li>
-      <li className="nav-item"><Link href='/tasks'><a className="nav-link">Tasks</a></Link></li>
-      <li className="nav-item"><Link href='#'><a className="nav-link">Datasets</a></Link></li>
-      <li className="nav-item"><Link href='#'><a className="nav-link">Models</a></Link></li>
-      <li className="nav-item" style={{ display: 'flex', alignItems: 'center' }}>
+    <>
+      <ul className="header-menu">
+        <li className="nav-item"><Link href='/'><a className="nav-link">Home</a></Link></li>
+        <li className="nav-item"><Link href='/feed'><a className="nav-link">Feed</a></Link></li>
+        <li className="nav-item"><Link href='/tasks'><a className="nav-link">Tasks</a></Link></li>
+        <li className="nav-item"><Link href='#'><a className="nav-link">Datasets</a></Link></li>
+        <li className="nav-item"><Link href='#'><a className="nav-link">Models</a></Link></li>
+        <li className="nav-item" style={{ display: 'flex', alignItems: 'center' }}>
+          <Dropdown
+            overlay={menuOverlay()}
+            trigger={['click']}
+            placement="bottomRight"
+          >
+            <div style={{ marginRight: 24 }}>
+              <Avatar shape="square" src={authUser.profile_pic} style={{
+                cursor: "pointer",
+                margin: "0 0.7em"
+              }} />
+            </div>
+          </Dropdown>
+          <a className="dataforest-coin" href='#'>
+            <label style={{ marginRight: 10 }}>{authUser.money.toFixed(2)}</label>
+            <img src="/static/fonts/coins-solid.svg" />
+          </a>
+        </li>
+      </ul>
+      <div className="header-menu-icon">
         <Dropdown
           overlay={menuOverlay()}
           trigger={['click']}
@@ -54,12 +74,12 @@ function Navigation() {
             }} />
           </div>
         </Dropdown>
-        <a class="dataforest-coin" href='#'>
+        <a className="dataforest-coin" href='#'>
           <label style={{ marginRight: 10 }}>{authUser.money.toFixed(2)}</label>
           <img src="/static/fonts/coins-solid.svg" />
         </a>
-      </li>
-    </ul>
+      </div>
+    </>
   );
 
   const renderNonAuth = () => (
@@ -124,7 +144,7 @@ function Navigation() {
       </Header>
       <style scoped>
         {`
-        ul {
+        ul.header-menu {
           display: flex;
           flex-direction: row;
           padding-left: 0;
