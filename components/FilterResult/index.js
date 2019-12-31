@@ -11,7 +11,7 @@ export function FilterContainer({ children }) {
 
 export function Option({ children }) {
   return (
-    <div style={{ padding: '3rem 15px 0 3rem', width: '33%' }}>
+    <div className="option-container">
       {children}
     </div>
   )
@@ -19,7 +19,7 @@ export function Option({ children }) {
 
 export function Result({ children }) {
   return (
-    <div style={{ padding: '3rem 15px 0 15px', width: '66%' }}>
+    <div className="result-container">
       {children}
     </div>
   )

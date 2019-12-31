@@ -155,7 +155,7 @@ function Navigation() {
         li.nav-item {
           margin-right: 45px;
         }
-        a {
+        .header-menu a {
           color: white;
         }
         a.nav-link {

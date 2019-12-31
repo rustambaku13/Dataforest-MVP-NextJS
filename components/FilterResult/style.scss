@@ -9,5 +9,25 @@ $maxWidth: 1033px;
   @media screen and (max-width: $maxWidth) {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
+  }
+
+  .option-container {
+    padding: 3rem 15px 0 3rem;
+    width: 33%;
+    @media screen and (max-width: $maxWidth) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+      width: 100%;
+    }
+  }
+
+  .result-container {
+    padding: 3rem 15px 0 15px;
+    width: 66%;
+    @media screen and (max-width: $maxWidth) {
+      padding: 3rem 15px 0 15px;
+      width: 100%;
+    }
   }
 }

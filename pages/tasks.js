@@ -41,6 +41,10 @@ function Tasks() {
             <h3>Price</h3>
             <Slider range defaultValue={[0, 1]} min={0} max={1.5} step={0.01} />
           </div>
+          <div style={{ marginTop: '3rem', display: 'flex', flexDirection: 'column', width: 100 }}>
+            <Button type="primary" size="large">APPLY</Button>
+            <a>Clear all filters</a>
+          </div>
         </Option>
         <Result>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
