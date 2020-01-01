@@ -16,12 +16,11 @@ import 'nprogress/nprogress.css';
 
 NProgress.configure({ showSpinner: false });
 
-Router.events.on('routeChangeStart', url => {
-  console.log(`Loading: ${url}`)
+Router.events.on('routeChangeStart', () => {
   NProgress.start()
-})
-Router.events.on('routeChangeComplete', () => NProgress.done())
-Router.events.on('routeChangeError', () => NProgress.done())
+});
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 function MyApp({ Component, pageProps, store, token }) {
   // Set common header to axios if token is valid
