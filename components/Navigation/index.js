@@ -137,7 +137,7 @@ function Navigation() {
             </a>
           </Link>
         </div>
-        <div style={{ display: 'flex', height: 80 }}>
+        <div style={{ display: 'flex' }}>
           <AuthRender
             renderAuth={renderAuth}
             renderNonAuth={renderNonAuth}

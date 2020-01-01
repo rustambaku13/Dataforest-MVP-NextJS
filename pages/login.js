@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
+import Meta from '../components/Meta';
 import Router from 'next/router';
 import { Form, Input, Icon, Tooltip, Button, message } from 'antd';
 import * as validators from '../helpers/formValidation';
@@ -54,13 +55,10 @@ function Login(props) {
 
   return (
     <>
-      <Head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Dataforest: Your Single Venue for the Data that you need!</title>
-        <meta name="description" content="Dataforest your data marketplace" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      <Meta
+        title="Login"
+        description="Login to DataForest"
+      />
 
       <div className="login-page">
         <div className="login-container">

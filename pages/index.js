@@ -1,17 +1,14 @@
 import React from 'react';
-import Head from 'next/head';
 import Link from 'next/Link';
+import Meta from '../components/Meta';
 import { Footer } from '../views/snippet';
 
 const Home = () => (
   <div>
-    <Head>
-      <meta charSet="utf-8" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-      <title>Dataforest: Your Single Venue for the Data that you need!</title>
-      <meta name="description" content="Dataforest your data marketplace " />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </Head>
+    <Meta
+      title='Dataforest: Your Single Venue for the Data that you need!'
+      description='Collect data & Sell your data'
+    />
     <section className="home_banner_area">
       <div className="banner_inner d-flex align-items-center">
         <div className="overlay" />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Meta from '../components/Meta';
 import { Form, Input, Icon, Tooltip, Button, Upload } from 'antd';
 import * as validators from '../helpers/formValidation';
 import useProtectedRoute from '../hooks/useProtectedRoute';
@@ -60,13 +61,10 @@ function Signup(props) {
 
   return (
     <>
-      <Head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Dataforest: Your Single Venue for the Data that you need!</title>
-        <meta name="description" content="Dataforest your data marketplace" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+      <Meta
+        title="Signup"
+        description="Sign up to DataForest"
+      />
 
       <div className="signup-page">
         <div className="signup-container">
