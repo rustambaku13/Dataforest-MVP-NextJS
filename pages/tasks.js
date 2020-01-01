@@ -9,7 +9,17 @@ const { TabPane } = Tabs;
 function Tasks() {
   const [category, setCategory] = useState('image');
   const [tab, setTab] = useState('public');
+  const [searchInput, setSearchInput] = useState("");
   useProtectedRoute(auth => !auth);
+
+  function resetFilter() {
+    setSearchInput("");
+    setCategory('image');
+  }
+
+  function applyFilter() {
+
+  }
 
   return (
     <>
@@ -18,7 +28,7 @@ function Tasks() {
         <Option>
           <div>
             <h3>Search</h3>
-            <Input size="large" placeholder="Search" />
+            <Input size="large" placeholder="Search" value={searchInput} onChange={e => setSearchInput(e.target.value)} />
           </div>
           <div style={{ marginTop: '3rem' }}>
             <h3>Category</h3>
@@ -42,8 +52,8 @@ function Tasks() {
             <Slider range defaultValue={[0, 1]} min={0} max={1.5} step={0.01} />
           </div>
           <div style={{ marginTop: '3rem', display: 'flex', flexDirection: 'column', width: 100 }}>
-            <Button type="primary" size="large">APPLY</Button>
-            <a>Clear all filters</a>
+            <Button type="primary" size="large" onClick={applyFilter}>APPLY</Button>
+            <a onClick={resetFilter}>Clear all filters</a>
           </div>
         </Option>
         <Result>

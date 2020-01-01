@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import nextCookie from 'next-cookies';
 import { Provider } from 'react-redux';
 import Navigation from '../components/Navigation';
 import { makestore } from '../store';
@@ -32,7 +33,9 @@ MyApp.getInitialProps = async (props) => {
     pageProps = await Component.getInitialProps(ctx);
   }
 
-  const data = await getUserInfo(ctx);
+  const { token } = nextCookie(ctx);
+
+  const data = await getUserInfo(token);
   ctx.store.dispatch(setAuthUser(data));
 
   return { pageProps };

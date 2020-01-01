@@ -19,6 +19,7 @@ function Navigation() {
 
   function logout() {
     cookie.remove('token');
+    axios.defaults.headers.common = null;
     dispatch(setAuthUser(null));
   }
 
