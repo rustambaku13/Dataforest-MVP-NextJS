@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Link from 'next/link';
+import axios from 'axios';
 import { useRouter } from 'next/router';
-import { Layout, Button, Avatar, Drawer, Menu, Dropdown, Icon } from 'antd';
+import { Layout, Button, Avatar, Drawer, Menu, Dropdown } from 'antd';
 import cookie from 'js-cookie';
 import AuthRender from '../../components/AuthRender';
 import { setAuthUser } from '../../actions';
@@ -136,7 +137,7 @@ function Navigation() {
             </a>
           </Link>
         </div>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', height: 80 }}>
           <AuthRender
             renderAuth={renderAuth}
             renderNonAuth={renderNonAuth}

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
 import nextCookie from 'next-cookies';
+import axios from 'axios';
 import { Provider } from 'react-redux';
 import Navigation from '../components/Navigation';
 import { makestore } from '../store';
@@ -10,7 +11,14 @@ import '../static/styles/index.scss';
 import { getUserInfo } from '../services/user';
 import { setAuthUser } from '../actions';
 
-function MyApp({ Component, pageProps, store }) {
+function MyApp({ Component, pageProps, store, token }) {
+  // Set common header to axios if token is valid
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common = { 'Authorization': `Token ${token}` };
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <Head>
@@ -38,7 +46,7 @@ MyApp.getInitialProps = async (props) => {
   const data = await getUserInfo(token);
   ctx.store.dispatch(setAuthUser(data));
 
-  return { pageProps };
+  return { pageProps, token: data ? token : null };
 }
 
 export default withRedux(makestore)(MyApp);

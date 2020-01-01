@@ -5,7 +5,6 @@ import { base_url } from '../constants/api';
 export async function getUserInfo(token) {
   try {
     if (token) {
-      axios.defaults.headers.common = { 'Authorization': `Token ${token}` }
       const { data } = await axios.get(`${base_url}/users/me/`);
       return data;
     }
@@ -21,7 +20,8 @@ export async function getUserInfo(token) {
 export async function login(credentials) {
   try {
     const { data } = await axios.post(`${base_url}/api-token-auth/`, credentials);
-    axios.defaults.headers.common = { 'Authorization': `Token ${token}` }
+    console.log({ data })
+    axios.defaults.headers.common = { 'Authorization': `Token ${data.token}` }
     cookie.set('token', data.token);
     return data.token;
   }

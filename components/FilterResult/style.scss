@@ -23,10 +23,9 @@ $maxWidth: 1033px;
   }
 
   .result-container {
-    padding: 3rem 15px 0 15px;
+    padding: 3rem 15px;
     width: 66%;
     @media screen and (max-width: $maxWidth) {
-      padding: 3rem 15px 0 15px;
       width: 100%;
     }
   }
