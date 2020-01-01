@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import nextCookie from 'next-cookies';
 import axios from 'axios';
@@ -13,11 +13,9 @@ import { setAuthUser } from '../actions';
 
 function MyApp({ Component, pageProps, store, token }) {
   // Set common header to axios if token is valid
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common = { 'Authorization': `Token ${token}` };
-    }
-  }, []);
+  if (token) {
+    axios.defaults.headers.common = { 'Authorization': `Token ${token}` };
+  }
 
   return (
     <Provider store={store}>
