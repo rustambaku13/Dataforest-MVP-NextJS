@@ -96,7 +96,7 @@ function Navigation() {
         <li className="nav-item"></li>
       </ul>
       <div className="nav-sign">
-        <ul>
+        <ul style={{ marginBottom: 0 }}>
           <li className="nav-item"><Link href='/login'><a className="nav-link">Sign In</a></Link></li>
         </ul>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -137,7 +137,7 @@ function Navigation() {
             </a>
           </Link>
         </div>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
           <AuthRender
             renderAuth={renderAuth}
             renderNonAuth={renderNonAuth}
