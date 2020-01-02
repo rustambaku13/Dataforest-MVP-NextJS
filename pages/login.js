@@ -7,9 +7,9 @@ import Router from 'next/router';
 import { Form, Input, Icon, Tooltip, Button, message } from 'antd';
 import * as validators from '../helpers/formValidation';
 import { setAuthUser } from '../actions';
-import { login, getUserInfo } from '../services/user';
+import { login, getUserInfoByToken } from '../services/user';
 import useProtectedRoute from '../hooks/useProtectedRoute';
-import '../static/styles/login.scss';
+//import '../static/styles/login.scss';
 
 const FormItem = Form.Item;
 
@@ -28,7 +28,7 @@ function Login(props) {
             setLoading(true);
             const { username, password } = props.form.getFieldsValue();
             const token = await login({ username, password });
-            const info = await getUserInfo(null, token);
+            const info = await getUserInfoByToken(token);
 
             setLoading(false);
 

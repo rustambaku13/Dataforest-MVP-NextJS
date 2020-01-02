@@ -4,7 +4,7 @@ import useProtectedRoute from '../hooks/useProtectedRoute';
 import TopHeader from '../components/TopHeader';
 import { Card } from 'antd';
 import { getDiscussions } from '../services/discussions';
-import '../static/styles/feed.scss';
+
 
 function Feed() {
   const { authUser } = useSelector(state => state.sessionState);

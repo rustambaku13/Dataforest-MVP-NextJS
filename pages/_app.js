@@ -8,11 +8,14 @@ import { Provider } from 'react-redux';
 import Navigation from '../components/Navigation';
 import { makestore } from '../store';
 import withRedux from "next-redux-wrapper";
-import 'antd/dist/antd.css';
-import '../static/styles/index.scss';
-import { getUserInfo } from '../services/user';
+import { getUserInfoByToken } from '../services/user';
 import { setAuthUser } from '../actions';
 import 'nprogress/nprogress.css';
+import 'antd/dist/antd.css';
+import '../static/styles/index.scss';
+import '../static/styles/login.scss';
+import '../static/styles/signup.scss';
+import '../static/styles/feed.scss';
 
 NProgress.configure({ showSpinner: false });
 
@@ -52,7 +55,13 @@ MyApp.getInitialProps = async (props) => {
 
   const { token } = nextCookie(ctx);
 
-  const data = await getUserInfo(token);
+  let data;
+  try {
+    data = await getUserInfoByToken(token);
+  }
+  catch (e) {
+    throw e;
+  }
   ctx.store.dispatch(setAuthUser(data));
 
   return { pageProps, token: data ? token : null };
