@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import './style.scss';
 
+const year = new Date().getFullYear();
+
 export default () => (
   <footer className="footer-area">
     <div className="container" style={{ margin: '0 auto' }}>
@@ -39,7 +41,7 @@ export default () => (
     </div>
     <div className="footer-bottom" style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem' }}>
       <p className="footer-text m-0 col-lg-8 col-md-12">{/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}
-        Copyright © All rights reserved
+        Copyright ©{year} All rights reserved
             {/* Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. */}</p>
       <div className="col-lg-4 col-md-12 text-center text-lg-right footer-social">
         <a href="#"><i className="ti-facebook" /></a>
