@@ -29,7 +29,7 @@ function Navigation() {
   const menuOverlay = () => (
     <Menu style={{ display: 'flex', flexDirection: 'column', fontSize: 18 }}>
       <p style={{ fontSize: 18, padding: '5px 12px', margin: 0, fontWeight: 'bold' }}>{authUser.first_name} {authUser.last_name}</p>
-      <Item style={fontStyle} key="profile"><Link href={`/user/${authUser.id}`}>Profile</Link></Item>
+      <Item style={fontStyle} key="profile"><Link href="/user/[id]`" as={`/user/${authUser.id}`}>Profile</Link></Item>
       <Item style={fontStyle} key="setting"><Link href='/settings'>Settings</Link></Item>
       <Item style={fontStyle} key="topup"><Link href="/top-up">Top-Up</Link></Item>
       <Item style={fontStyle} key="logout" onClick={logout}><Link href='/'>Log out</Link></Item>

@@ -2,7 +2,7 @@ import axios from 'axios';
 import cookie from 'js-cookie'
 import { base_url } from '../constants/api';
 
-export async function getUserInfo(token) {
+export async function getUserInfoByToken(token) {
   try {
     if (token) {
       const { data } = await axios.get(`${base_url}/users/me/`);
@@ -10,7 +10,17 @@ export async function getUserInfo(token) {
     }
 
     return null;
-    
+
+  }
+  catch (e) {
+    throw e;
+  }
+}
+
+export async function getUserInfoByID(id) {
+  try {
+    const { data } = await axios.get(`${base_url}/users/${id}/`);
+    return data;
   }
   catch (e) {
     throw e;

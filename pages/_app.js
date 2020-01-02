@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import Navigation from '../components/Navigation';
 import { makestore } from '../store';
 import withRedux from "next-redux-wrapper";
-import { getUserInfo } from '../services/user';
+import { getUserInfoByToken } from '../services/user';
 import { setAuthUser } from '../actions';
 import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
@@ -55,7 +55,7 @@ MyApp.getInitialProps = async (props) => {
 
   const { token } = nextCookie(ctx);
 
-  const data = await getUserInfo(token);
+  const data = await getUserInfoByToken(token);
   ctx.store.dispatch(setAuthUser(data));
 
   return { pageProps, token: data ? token : null };
