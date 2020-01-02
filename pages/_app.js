@@ -10,6 +10,7 @@ import { makestore } from '../store';
 import withRedux from "next-redux-wrapper";
 import { getUserInfoByToken } from '../services/user';
 import { setAuthUser } from '../actions';
+import Footer from '../components/Footer';
 import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
 import '../static/styles/index.scss';
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps, store, token }) {
 
       <Navigation />
       <Component {...pageProps} />
+      <Footer />
     </Provider>
   )
 }

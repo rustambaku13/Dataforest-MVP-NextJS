@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
 import Meta from '../components/Meta';
-import { Footer } from '../views/snippet';
 
 const Home = () => (
   <div>
@@ -106,7 +105,6 @@ const Home = () => (
           </div>
         </div>
       </section>
-      <Footer />
     </section>
   </div>
 )
