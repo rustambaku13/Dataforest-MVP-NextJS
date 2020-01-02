@@ -133,7 +133,7 @@ function Navigation() {
         <div className="title">
           <Link href="/">
             <a className="navbar-brand logo_h">
-              <img src="/static/assets/logo2.png" height={60} alt="Dataforest" />
+              <img src="/static/assets/LOGO2.png" height={60} alt="Dataforest" />
             </a>
           </Link>
         </div>

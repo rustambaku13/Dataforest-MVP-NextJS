@@ -8,7 +8,7 @@ export default () => (
     <div className="container" style={{ margin: '0 auto' }}>
       <div className="row">
         <div className="single-footer-widget">
-          <img uk-scrollspy="cls: uk-animation-fade; delay: 500" className="footer-logo" src="/static/assets/logo2.png" height={100} /> <br />
+          <img uk-scrollspy="cls: uk-animation-fade; delay: 500" className="footer-logo" src="/static/assets/LOGO2.png" height={100} /> <br />
           <div uk-scrollspy="target: >*;cls: uk-animation-fade; delay: 1000" className="footer-have-acc text-white "><span className="mr-1">Have an account?</span><Link href="Login"><a href="/login">Sign In</a></Link>       </div>
         </div>
         <div className="single-footer-widget">
