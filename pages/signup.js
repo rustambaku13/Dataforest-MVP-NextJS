@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import Meta from '../components/Meta';
-import { Form, Input, Icon, Tooltip, Button, Upload } from 'antd';
+import { Form, Input, Icon, Tooltip, Button, Upload, message } from 'antd';
 import * as validators from '../helpers/formValidation';
 import useProtectedRoute from '../hooks/useProtectedRoute';
+import { signup } from '../services/user';
 import '../static/styles/signup.scss';
 
 const FormItem = Form.Item;
@@ -18,11 +18,26 @@ function getBase64(img, callback) {
 function Signup(props) {
   const [avatar, setAvatar] = useState("");
   const [imgLoading, setImgLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   useProtectedRoute(auth => auth);
 
-  function handleSubmit(e) {
-    console.log('submit')
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    try {
+      setLoading(true);
+      const { username, firstName, lastName, password, email } = props.form.getFieldsValue();
+      const data = await signup({ username, first_name: firstName, last_name: lastName, password, email });
+
+      setLoading(false);
+
+      dispatch(setAuthUser(data));
+      Router.push('/');
+    }
+    catch (e) {
+      setLoading(false);
+      message.error(e.response.data.non_field_errors[0]);
+    }
   }
 
   function handleChange(info) {
@@ -188,9 +203,9 @@ function Signup(props) {
                 >
                   {getFieldDecorator('password', {
                     validateTrigger: 'onBlur',
-                    rules: [
-                      { validator: validators.validateToNextPassword }
-                    ],
+                    // rules: [
+                    //   { validator: validators.validateToNextPassword }
+                    // ],
                     initialValue: ''
                   })(
                     <Tooltip placement="top" title={passwordError} trigger="focus">
@@ -218,7 +233,7 @@ function Signup(props) {
                   })(
                     <Tooltip placement="top" title={passwordError} trigger="focus">
                       <Input.Password
-                        onChange={e => props.form.setFieldsValue({ password: e.target.value })}
+                        onChange={e => props.form.setFieldsValue({ confirm: e.target.value })}
                         type="password"
                         placeholder="Password"
                         prefix={<Icon type="lock" />}
@@ -229,7 +244,7 @@ function Signup(props) {
                 </FormItem>
               </div>
               <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-                <Button type="primary" htmlType="submit">SIGN UP</Button>
+                <Button type="primary" htmlType="submit" loading={loading}>SIGN UP</Button>
               </div>
               <p style={{ color: 'white', fontSize: '1.2em' }}>
                 Have an account? <Link href="/login"><a style={{ color: '#007bff' }}>LOG IN</a></Link>
