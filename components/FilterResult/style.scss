@@ -5,6 +5,7 @@ $maxWidth: 1033px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
+  margin-bottom: 3rem;
 
   @media screen and (max-width: $maxWidth) {
     display: flex;

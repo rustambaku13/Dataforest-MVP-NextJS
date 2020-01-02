@@ -27,12 +27,12 @@ export default () => (
         <div className="single-footer-widget">
           <h4>Important Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Explore</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Contacts</a></li>
+            <li><Link href="/"><a>Home</a></Link></li>
+            <li><Link href="/login"><a>Login</a></Link></li>
+            <li><Link href="/signup"><a>Sign Up</a></Link></li>
+            <li><Link href="/explore"><a>Explore</a></Link></li>
+            <li><Link href="/about"><a>About Us</a></Link></li>
+            <li><Link href="/contacts"><a>Contacts</a></Link></li>
           </ul>
         </div>
       </div>
