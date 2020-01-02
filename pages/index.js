@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Meta from '../components/Meta';
+import '../static/styles/index.scss';
 
 const Home = () => (
   <div>

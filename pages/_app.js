@@ -13,10 +13,6 @@ import { setAuthUser } from '../actions';
 import Footer from '../components/Footer';
 import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
-import '../static/styles/index.scss';
-import '../static/styles/login.scss';
-import '../static/styles/signup.scss';
-import '../static/styles/feed.scss';
 
 NProgress.configure({ showSpinner: false });
 
