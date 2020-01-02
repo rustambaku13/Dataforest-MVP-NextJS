@@ -55,7 +55,13 @@ MyApp.getInitialProps = async (props) => {
 
   const { token } = nextCookie(ctx);
 
-  const data = await getUserInfoByToken(token);
+  let data;
+  try {
+    data = await getUserInfoByToken(token);
+  }
+  catch (e) {
+    throw e;
+  }
   ctx.store.dispatch(setAuthUser(data));
 
   return { pageProps, token: data ? token : null };
