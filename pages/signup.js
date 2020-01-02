@@ -227,11 +227,11 @@ function Signup(props) {
                   {getFieldDecorator('confirm', {
                     validateTrigger: 'onBlur',
                     rules: [
-                      { validator: validators.compareToFirstPassword }
+                      { validator: validators.compareToFirstPassword(props.form.getFieldValue('password')) }
                     ],
                     initialValue: ''
                   })(
-                    <Tooltip placement="top" title={passwordError} trigger="focus">
+                    <Tooltip placement="top" title={confirmError} trigger="focus">
                       <Input.Password
                         onChange={e => props.form.setFieldsValue({ confirm: e.target.value })}
                         type="password"
