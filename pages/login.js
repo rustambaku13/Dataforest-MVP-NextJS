@@ -9,7 +9,7 @@ import * as validators from '../helpers/formValidation';
 import { setAuthUser } from '../actions';
 import { login, getUserInfo } from '../services/user';
 import useProtectedRoute from '../hooks/useProtectedRoute';
-import '../static/styles/login.scss';
+//import '../static/styles/login.scss';
 
 const FormItem = Form.Item;
 

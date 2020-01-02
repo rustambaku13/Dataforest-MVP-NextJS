@@ -5,7 +5,7 @@ import Meta from '../components/Meta';
 import { Form, Input, Icon, Tooltip, Button, Upload } from 'antd';
 import * as validators from '../helpers/formValidation';
 import useProtectedRoute from '../hooks/useProtectedRoute';
-import '../static/styles/signup.scss';
+//import '../static/styles/signup.scss';
 
 const FormItem = Form.Item;
 
