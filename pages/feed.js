@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import useProtectedRoute from '../hooks/useProtectedRoute';
 import TopHeader from '../components/TopHeader';
 import { Card, Drawer, Row, Col, Input, Form, Button, List, Avatar, Icon } from 'antd';
 import { getDiscussions, createDiscussion } from '../services/discussions';
 import { formatDate } from '../helpers/dateFormat';
-import ReactQuill from "react-quill";
 import '../static/styles/feed.scss';
+
+const ReactQuill = dynamic(
+  () => import('react-quill'),
+  { ssr: false }
+)
 
 const FormItem = Form.Item;
 const ListItem = List.Item;
@@ -17,8 +22,13 @@ function Feed(props) {
   const [discussions, setDiscussions] = useState(props.discussions);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerWidth, setDrawerWidth] = useState(720);
   const Router = useRouter();
   useProtectedRoute(auth => !auth);
+
+  useEffect(() => {
+    setDrawerWidth(window.innerWidth > 720 ? 720 : "100%");
+  }, [window.innerWidth]);
 
   const { getFieldDecorator, getFieldsValue, validateFields } = props.form;
 
@@ -96,7 +106,7 @@ function Feed(props) {
       </div>
       <Drawer
         title="Create New Discussion"
-        width={window.innerWidth > 720 ? 720 : "100%"}
+        width={drawerWidth}
         placement="right"
         onClose={() => setDrawerOpen(false)}
         maskClosable={true}
