@@ -46,11 +46,6 @@ MyApp.getInitialProps = async (props) => {
   const { Component, ctx } = props;
   let pageProps = {};
 
-  // call getInitialProps if any
-  if (Component.getInitialProps) {
-    pageProps = await Component.getInitialProps(ctx);
-  }
-
   const { token } = nextCookie(ctx);
 
   let data;
@@ -61,6 +56,11 @@ MyApp.getInitialProps = async (props) => {
     data = null;
   }
   ctx.store.dispatch(setAuthUser(data));
+
+  // call getInitialProps if any
+  if (Component.getInitialProps) {
+    pageProps = await Component.getInitialProps(ctx);
+  }
 
   return { pageProps, token: data ? token : null };
 }
