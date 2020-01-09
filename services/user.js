@@ -5,7 +5,11 @@ import { base_url } from '../constants/api';
 export async function getUserInfoByToken(token) {
   try {
     if (token) {
-      const { data } = await axios.get(`${base_url}/users/me/`);
+      const { data } = await axios.get(`${base_url}/users/me/`, {
+        headers: {
+          'Authorization': `Token ${token}`
+        }
+      });
       return data;
     }
 

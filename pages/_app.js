@@ -58,7 +58,7 @@ MyApp.getInitialProps = async (props) => {
     data = await getUserInfoByToken(token);
   }
   catch (e) {
-    throw e;
+    data = null;
   }
   ctx.store.dispatch(setAuthUser(data));
 
