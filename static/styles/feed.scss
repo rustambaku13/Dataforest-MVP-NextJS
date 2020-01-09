@@ -3,4 +3,66 @@
   width: 80%;
   margin: 0 auto;
   padding: 3rem 0;
+
+  .ant-card-body {
+    padding: 0px;
+    padding-top: 1px;
+
+    .ant-list-item {
+      background: white;
+      transition: 0.2s;
+      cursor: pointer;
+
+      .upvote {
+        display: block;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        margin-right: 0.7rem;
+        transition: 0.3s;
+        > * { font-size: 16px; color: #BBB; }
+        > h3 { line-height: 14px; }
+      }
+      .upvote:hover {
+        > * { color: #1890ff; }
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        margin-right: 1.2rem;
+      }
+
+      .discussion-title {
+        > h3 { font-size: 18px; }
+      }
+
+      h3 { margin: 0 }
+    }
+
+    .ant-list-item:hover {
+      background: #ededed;
+    }
+  }
+}
+
+.create-discussion-drawer {
+  .drawer-submit {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #e8e8e8;
+    padding: 10px 16px;
+    text-align: right;
+    left: 0;
+    background: #fff;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .ql-editor {
+    height: 200px !important;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
 }

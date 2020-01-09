@@ -10,3 +10,17 @@ export async function getDiscussions({ category }) {
     throw e;
   }
 }
+
+export async function createDiscussion({ title, category, core }) {
+  try {
+    const { data } = await axios.post(`${base_url}/discussions/`, {
+      title,
+      category,
+      core
+    });
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+}
