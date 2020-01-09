@@ -81,6 +81,25 @@ function Navigation() {
           <img src="/static/fonts/coins-solid.svg" />
         </a>
       </div>
+
+      {/* Mobile */}
+      <div className="header-menu-icon">
+        <Avatar shape="square" size="large" icon="bars" style={avatarStyle} onClick={() => setMenuVisible(true)} />
+        <Drawer
+          placement="right"
+          closable={false}
+          onClose={() => setMenuVisible(false)}
+          visible={menuVisible}
+        >
+          <Menu onClick={() => setMenuVisible(false)} style={{ display: 'flex', flexDirection: 'column' }}>
+            <Item><Link href='/'><a>Home</a></Link></Item>
+            <Item><Link href='/feed'><a>Feed</a></Link></Item>
+            <Item><Link href='/tasks'><a>Tasks</a></Link></Item>
+            <Item><Link href='/datasets'><a>Datasets</a></Link></Item>
+            <Item><Link href='/models'><a>Models</a></Link></Item>
+          </Menu>
+        </Drawer>
+      </div>
     </>
   );
 
