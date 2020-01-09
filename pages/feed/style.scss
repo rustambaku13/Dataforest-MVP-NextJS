@@ -1,0 +1,20 @@
+.discussion-thread {
+  max-width: 950px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 3rem 0;
+  margin-top: 64px;
+
+  .upvote {
+    display: block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    transition: 0.3s;
+    > * { font-size: 16px; color: #BBB; }
+    > h3 { line-height: 14px; }
+  }
+  .upvote:hover {
+    > * { color: #1890ff; }
+  }
+}

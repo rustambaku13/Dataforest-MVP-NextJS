@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import useProtectedRoute from '../hooks/useProtectedRoute';
 import TopHeader from '../components/TopHeader';
 import { Card, Drawer, Row, Col, Input, Form, Button, List, Avatar, Icon } from 'antd';
@@ -17,7 +17,7 @@ function Feed(props) {
   const [discussions, setDiscussions] = useState(props.discussions);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const { authUser } = useSelector(state => state.sessionState);
+  const Router = useRouter();
   useProtectedRoute(auth => !auth);
 
   const { getFieldDecorator, getFieldsValue, validateFields } = props.form;
@@ -60,7 +60,7 @@ function Feed(props) {
         dataSource={discussions}
         itemLayout="horizontal"
         renderItem={item => (
-          <ListItem key={item.id} style={{ paddingLeft: 15, paddingRight: 15 }}>
+          <ListItem key={item.id} style={{ paddingLeft: 15, paddingRight: 15 }} onClick={() => Router.push(`/feed/${item.id}`)}>
             <a className="upvote" onClick={upvote}>
               <Icon type="caret-up" />
               <h3>{item.upvotes_number}</h3>
@@ -140,7 +140,6 @@ function Feed(props) {
 
 Feed.getInitialProps = async () => {
   const discussions = await getDiscussions({ category: 'Learn' });
-  console.log({ discussions });
   return { discussions };
 }
 
