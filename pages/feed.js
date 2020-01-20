@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import useProtectedRoute from '../hooks/useProtectedRoute';
@@ -26,9 +25,10 @@ function Feed(props) {
   const Router = useRouter();
   useProtectedRoute(auth => !auth);
 
+  const effectDependencies = typeof window === 'undefined' ? [] : [window.innerWidth];
   useEffect(() => {
     setDrawerWidth(window.innerWidth > 720 ? 720 : "100%");
-  }, [window.innerWidth]);
+  }, effectDependencies);
 
   const { getFieldDecorator, getFieldsValue, validateFields } = props.form;
 
@@ -55,8 +55,11 @@ function Feed(props) {
         console.log({ err });
       }
     });
+  }
 
-    console.log(getFieldsValue());
+  const handleUsernameClick = (id) => (e) => {
+    e.stopPropagation();
+    Router.push(`/user/${id}`);
   }
 
   function upvote(e) {
@@ -79,9 +82,7 @@ function Feed(props) {
             <div className="discussion-title">
               <h3>{item.title}</h3>
               <span>
-                <Link href={`/user/${item.author.id}`}>
-                  <a>{item.author.first_name} {item.author.last_name}</a>
-                </Link> {formatDate(item.created_at)} ago
+                <a onClick={handleUsernameClick(item.author.id)}>{item.author.first_name} {item.author.last_name}</a> {formatDate(item.created_at)} ago
               </span>
             </div>
           </ListItem>
