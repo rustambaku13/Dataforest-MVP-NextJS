@@ -19,11 +19,11 @@ function FeedComments({ comments, setComments }) {
 
   return (
     <>
+      {comments.length > 0 && <CommentList comments={comments} />}
       <Comment
         avatar={<Avatar shape="square" src={authUser.profile_pic} style={{ marginTop: 4 }} />}
         content={<Editor id={id} setComments={setComments} />}
       />
-      {comments.length > 0 && <CommentList comments={comments} />}
     </>
   )
 }
@@ -40,7 +40,7 @@ function Editor({ id, setComments }) {
 
     // get returned comment data from server
     const data = await createDiscussionComment({ id, comment: value });
-    
+
     // update comments on UI
     setComments(prev => [data, ...prev]);
 

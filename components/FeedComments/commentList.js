@@ -35,7 +35,7 @@ function CommentItem({ item }) {
           />
           <span style={{ paddingLeft: 8, cursor: 'auto' }}>{item.upvotes_number}</span>
         </span>,
-        <span key="reply-to">Reply to</span>
+        <span key="reply-to">Comment</span>
       ]}
     />
   )
