@@ -15,7 +15,7 @@ function CommentList({ comments }) {
       renderItem={item => (
         <Comment
           author={<Link href={`/user/${item.author.id}`}><a>{item.author.first_name} {item.author.last_name}</a></Link>}
-          avatar={<Avatar icon="user" style={{ marginTop: 4 }} />}
+          avatar={<Avatar shape="square" src={item.author.profile_pic} style={{ marginTop: 4 }} />}
           content={<p dangerouslySetInnerHTML={{ __html: item.comment }}></p>}
         />
       )

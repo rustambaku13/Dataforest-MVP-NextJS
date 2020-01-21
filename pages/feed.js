@@ -110,7 +110,7 @@ function Feed(props) {
                   rules: [{ required: true }],
                   initialValue: ''
                 })(
-                  <ReactQuill name="content" style={{ minHeight: 200 }} />
+                  <ReactQuill name="content" />
                 )}
               </FormItem>
             </Col>

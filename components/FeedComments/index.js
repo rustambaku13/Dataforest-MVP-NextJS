@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Comment, Avatar, Button, Form } from 'antd';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { createDiscussionComment } from '../../services/discussions';
 import CommentList from './commentList';
+import './style.scss';
 
 const ReactQuill = dynamic(
   () => import('react-quill'),
@@ -12,12 +14,13 @@ const ReactQuill = dynamic(
 
 function FeedComments({ comments, setComments }) {
   const Router = useRouter();
+  const { authUser } = useSelector(state => state.sessionState);
   const { id } = Router.query;
 
   return (
     <>
       <Comment
-        avatar={<Avatar icon="user" style={{ marginTop: 4 }} />}
+        avatar={<Avatar shape="square" src={authUser.profile_pic} style={{ marginTop: 4 }} />}
         content={<Editor id={id} setComments={setComments} />}
       />
       {comments.length > 0 && <CommentList comments={comments} />}
@@ -51,7 +54,7 @@ function Editor({ id, setComments }) {
   return (
     <div>
       <Form.Item>
-        <ReactQuill name="content" style={{ minHeight: 200 }} onChange={setValue} value={value} />
+        <ReactQuill name="content" onChange={setValue} value={value} />
       </Form.Item>
       <Form.Item>
         <Button
