@@ -4,6 +4,26 @@
   margin: 0 auto;
   padding: 3rem 0;
 
+  .main-discussion {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 3rem;
+    border: 2px solid #e8e8e8;
+    min-height: 300px;
+
+    .left {
+      width: 20%;
+      padding: 25px;
+      border-right: 2px solid #e8e8e8;
+    }
+    .right {
+      width: 80%;
+      > .ant-card-bordered {
+        border: none;
+      }
+    }
+  }
+
   .upvote {
     display: block;
     width: 40px;

@@ -3,9 +3,11 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import useProtectedRoute from '../../hooks/useProtectedRoute';
 import { getDiscussionByID, getDiscussionComments } from '../../services/discussions';
-import { Card, Icon } from 'antd';
+import { Card, Icon, Avatar } from 'antd';
 import FeedComments from '../../components/FeedComments';
+import { formatDate } from '../../helpers/dateFormat';
 import './style.scss';
+import Link from 'next/link';
 
 const LoadingIcon = () => (
   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -48,18 +50,33 @@ function Discussion({ discussion }) {
         <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css" />
       </Head>
       <div className="discussion-thread">
-        <Card
-          title={discussion.title}
-          extra={
-            <a className="upvote" onClick={upvote}>
-              <Icon type="caret-up" />
-              <h3>{discussion.upvotes_number}</h3>
-            </a>
-          }
-          style={{ marginBottom: '3rem' }}
-        >
-          <div dangerouslySetInnerHTML={{ __html: discussion.core }} />
-        </Card>
+        <div className="main-discussion">
+          <div className="left">
+            <div style={{ marginBottom: '1.2rem' }}>
+              <Avatar shape="square" src={discussion.author.profile_pic} size={64} />
+            </div>
+            <Link href={`/user/${discussion.author.id}`}><a>{discussion.author.first_name} {discussion.author.last_name}</a></Link>
+          </div>
+          <div className="right">
+            <Card
+              title={(
+                <div>
+                  <span style={{ fontSize: 24 }}>{discussion.title}</span>
+                  <br />
+                  <span style={{ fontSize: 14, color: '#bbb' }}>Posted {formatDate(discussion.created_at)} ago</span>
+                </div>
+              )}
+              extra={
+                <a className="upvote" onClick={upvote}>
+                  <Icon type="caret-up" />
+                  <h3>{discussion.upvotes_number}</h3>
+                </a>
+              }
+            >
+              <div dangerouslySetInnerHTML={{ __html: discussion.core }} />
+            </Card>
+          </div>
+        </div>
         {isLoadingComments ? <LoadingIcon /> : <FeedComments comments={comments} setComments={setComments} />}
       </div>
     </>
