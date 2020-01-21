@@ -4,12 +4,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 800px;
 
   .signup-container {
     width: 100%;
     max-width: 900px;
-    margin-top: 55px;
     margin-top: 64px;
+    margin-bottom: 64px;
 
     > form {
       display: flex;

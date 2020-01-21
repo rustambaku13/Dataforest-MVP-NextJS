@@ -254,7 +254,7 @@ function Signup(props) {
         </div>
       </div>
       <style scoped>{`
-      body {
+      .signup-page {
         background-image: linear-gradient(to bottom right,var(--dataforest_blue), var(--dataforest_dark));
         background-size: cover;
         background-repeat: no-repeat;

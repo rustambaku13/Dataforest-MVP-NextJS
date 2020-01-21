@@ -34,3 +34,45 @@ export async function createDiscussion({ title, category, core }) {
     throw e;
   }
 }
+
+export async function upvoteDiscussion({ id }) {
+  try {
+    const { data } = await axios.post(`${base_url}/discussions/${id}/upvote/`);
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+}
+
+export async function getDiscussionComments({ id }) {
+  try {
+    const { data } = await axios.get(`${base_url}/discussions/${id}/comments/`);
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+}
+
+export async function createDiscussionComment({ id, comment }) {
+  try {
+    const { data } = await axios.post(`${base_url}/discussions/${id}/comments/`, {
+      comment
+    });
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+}
+
+export async function upvoteComment({ discussionID, commentID }) {
+  try {
+    const { data } = await axios.post(`${base_url}/discussions/${discussionID}/comments/${commentID}/upvote/`);
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+}

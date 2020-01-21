@@ -5,8 +5,9 @@ import { useRouter } from 'next/router';
 import useProtectedRoute from '../hooks/useProtectedRoute';
 import TopHeader from '../components/TopHeader';
 import { Card, Drawer, Row, Col, Input, Form, Button, List, Avatar, Icon } from 'antd';
-import { getDiscussions, createDiscussion } from '../services/discussions';
+import { getDiscussions, createDiscussion, upvoteDiscussion } from '../services/discussions';
 import { formatDate } from '../helpers/dateFormat';
+import useUpvote from '../hooks/useUpvote';
 import '../static/styles/feed.scss';
 
 const ReactQuill = dynamic(
@@ -18,11 +19,11 @@ const FormItem = Form.Item;
 const ListItem = List.Item;
 
 function Feed(props) {
+  console.log(props.discussions)
   const [discussions, setDiscussions] = useState(props.discussions);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerWidth, setDrawerWidth] = useState(720);
-  const Router = useRouter();
   useProtectedRoute(auth => !auth);
 
   const effectDependencies = typeof window === 'undefined' ? [] : [window.innerWidth];
@@ -57,36 +58,12 @@ function Feed(props) {
     });
   }
 
-  const handleUsernameClick = (id) => (e) => {
-    e.stopPropagation();
-    Router.push(`/user/${id}`);
-  }
-
-  function upvote(e) {
-    e.stopPropagation();
-    console.log('upvoted!');
-  }
-
   function renderDiscussions() {
     return (
       <List
         dataSource={discussions}
         itemLayout="horizontal"
-        renderItem={item => (
-          <ListItem key={item.id} style={{ paddingLeft: 15, paddingRight: 15 }} onClick={() => Router.push(`/feed/${item.id}`)}>
-            <a className="upvote" onClick={upvote}>
-              <Icon type="caret-up" />
-              <h3>{item.upvotes_number}</h3>
-            </a>
-            <Avatar className="avatar" shape="square" src={item.author.profile_pic} />
-            <div className="discussion-title">
-              <h3>{item.title}</h3>
-              <span>
-                <a onClick={handleUsernameClick(item.author.id)}>{item.author.first_name} {item.author.last_name}</a> {formatDate(item.created_at)} ago
-              </span>
-            </div>
-          </ListItem>
-        )}
+        renderItem={item => <FeedListItem item={item} />}
       />
     )
   }
@@ -134,7 +111,7 @@ function Feed(props) {
                   rules: [{ required: true }],
                   initialValue: ''
                 })(
-                  <ReactQuill name="content" style={{ minHeight: 200 }} />
+                  <ReactQuill name="content" />
                 )}
               </FormItem>
             </Col>
@@ -147,6 +124,39 @@ function Feed(props) {
       </Drawer>
     </>
   )
+}
+
+function FeedListItem({ item }) {
+  const [number, color, updateUpvote] = useUpvote(item.upvotes_number, item.upvoted);
+  const Router = useRouter();
+
+  const handleUsernameClick = (id) => (e) => {
+    e.stopPropagation();
+    Router.push(`/user/${id}`);
+  }
+
+  const upvote = (id) => (e) => {
+    e.stopPropagation();
+    upvoteDiscussion({ id });
+
+    updateUpvote();
+  }
+
+  return (
+    <ListItem key={item.id} style={{ paddingLeft: 15, paddingRight: 15 }} onClick={() => Router.push(`/feed/${item.id}`)}>
+      <a className="upvote" onClick={upvote(item.id)}>
+        <Icon type="caret-up" style={{ color }} />
+        <h3 style={{ color }}>{number}</h3>
+      </a>
+      <Avatar className="avatar" shape="square" src={item.author.profile_pic} />
+      <div className="discussion-title">
+        <h3>{item.title}</h3>
+        <span>
+          <a onClick={handleUsernameClick(item.author.id)}>{item.author.first_name} {item.author.last_name}</a> {formatDate(item.created_at)} ago
+        </span>
+      </div>
+    </ListItem>
+  );
 }
 
 Feed.getInitialProps = async () => {

@@ -148,7 +148,7 @@ function Navigation() {
 
   return (
     <Layout>
-      <Header className="nav-header" style={{ background: authUser && Router.pathname !== '/' ? '#3C3C40' : 'rgba(0, 0, 0, 0.5)' }}>
+      <Header className="nav-header" style={{ background: '#3C3C40' }}>
         <div className="title">
           <Link href="/">
             <a className="navbar-brand logo_h">
