@@ -9,6 +9,7 @@ import {
 } from 'antd';
 import { formatDate } from '../../helpers/dateFormat';
 import { upvoteComment } from '../../services/discussions';
+import useUpvote from '../../hooks/useUpvote';
 
 function CommentList({ comments }) {
   return (
@@ -22,27 +23,14 @@ function CommentList({ comments }) {
 }
 
 function CommentItem({ item }) {
-  const [upvotes_number, setUpvotes_number] = useState(item.upvotes_number);
-  const [upvotedColor, setUpvotedColor] = useState(item.upvoted ? '#1890ff' : '#BBB');
-  const [upvoted, setUpvoted] = useState(item.upvoted);
+  const [number, color, updateUpvote] = useUpvote(item.upvotes_number, item.upvoted);
 
   const Router = useRouter();
   const { id } = Router.query;
 
   function upvote() {
     upvoteComment({ discussionID: id, commentID: item.id });
-
-    // subtract if already upvoted
-    if (upvoted) {
-      setUpvotes_number(prev => prev - 1);
-      setUpvotedColor('#BBB');
-      setUpvoted(false);
-    }
-    else {
-      setUpvotes_number(prev => prev + 1);
-      setUpvotedColor('#1890ff');
-      setUpvoted(true);
-    }
+    updateUpvote();
   }
 
   return (
@@ -55,9 +43,9 @@ function CommentItem({ item }) {
         <span key="like" style={{ cursor: 'pointer' }} onClick={upvote}>
           <Icon
             type="caret-up"
-            style={{ color: upvotedColor }}
+            style={{ color }}
           />
-          <span style={{ paddingLeft: 8, color: upvotedColor }}>{upvotes_number}</span>
+          <span style={{ paddingLeft: 8, color }}>{number}</span>
         </span>,
         <span key="reply-to">Comment</span>
       ]}

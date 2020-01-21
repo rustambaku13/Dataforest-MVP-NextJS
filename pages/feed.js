@@ -7,6 +7,7 @@ import TopHeader from '../components/TopHeader';
 import { Card, Drawer, Row, Col, Input, Form, Button, List, Avatar, Icon } from 'antd';
 import { getDiscussions, createDiscussion, upvoteDiscussion } from '../services/discussions';
 import { formatDate } from '../helpers/dateFormat';
+import useUpvote from '../hooks/useUpvote';
 import '../static/styles/feed.scss';
 
 const ReactQuill = dynamic(
@@ -126,9 +127,7 @@ function Feed(props) {
 }
 
 function FeedListItem({ item }) {
-  const [upvotes_number, setUpvotes_number] = useState(item.upvotes_number);
-  const [upvotedColor, setUpvotedColor] = useState(item.upvoted ? '#1890ff' : '#BBB');
-  const [upvoted, setUpvoted] = useState(item.upvoted);
+  const [number, color, updateUpvote] = useUpvote(item.upvotes_number, item.upvoted);
   const Router = useRouter();
 
   const handleUsernameClick = (id) => (e) => {
@@ -140,24 +139,14 @@ function FeedListItem({ item }) {
     e.stopPropagation();
     upvoteDiscussion({ id });
 
-    // subtract if already upvoted
-    if (upvoted) {
-      setUpvotes_number(prev => prev - 1);
-      setUpvotedColor('#BBB');
-      setUpvoted(false);
-    }
-    else {
-      setUpvotes_number(prev => prev + 1);
-      setUpvotedColor('#1890ff');
-      setUpvoted(true);
-    }
+    updateUpvote();
   }
 
   return (
     <ListItem key={item.id} style={{ paddingLeft: 15, paddingRight: 15 }} onClick={() => Router.push(`/feed/${item.id}`)}>
       <a className="upvote" onClick={upvote(item.id)}>
-        <Icon type="caret-up" style={{ color: upvotedColor }} />
-        <h3 style={{ color: upvotedColor }}>{upvotes_number}</h3>
+        <Icon type="caret-up" style={{ color }} />
+        <h3 style={{ color }}>{number}</h3>
       </a>
       <Avatar className="avatar" shape="square" src={item.author.profile_pic} />
       <div className="discussion-title">

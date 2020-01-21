@@ -6,6 +6,7 @@ import { getDiscussionByID, getDiscussionComments, upvoteDiscussion } from '../.
 import { Card, Icon, Avatar } from 'antd';
 import FeedComments from '../../components/FeedComments';
 import { formatDate } from '../../helpers/dateFormat';
+import useUpvote from '../../hooks/useUpvote';
 import './style.scss';
 import Link from 'next/link';
 
@@ -23,9 +24,7 @@ function Discussion({ discussion }) {
   const [comments, setComments] = useState([]);
   const [isLoadingComments, setIsLoadingComments] = useState(true);
 
-  const [upvotes_number, setUpvotes_number] = useState(discussion.upvotes_number);
-  const [upvotedColor, setUpvotedColor] = useState(discussion.upvoted ? '#1890ff' : '#BBB');
-  const [upvoted, setUpvoted] = useState(discussion.upvoted);
+  const [number, color, updateUpvote] = useUpvote(discussion.upvotes_number, discussion.upvoted);
 
   useProtectedRoute(auth => !auth);
 
@@ -48,17 +47,7 @@ function Discussion({ discussion }) {
     e.stopPropagation();
     upvoteDiscussion({ id });
 
-    // subtract if already upvoted
-    if (upvoted) {
-      setUpvotes_number(prev => prev - 1);
-      setUpvotedColor('#BBB');
-      setUpvoted(false);
-    }
-    else {
-      setUpvotes_number(prev => prev + 1);
-      setUpvotedColor('#1890ff');
-      setUpvoted(true);
-    }
+    updateUpvote();
   }
 
   return (
@@ -85,8 +74,8 @@ function Discussion({ discussion }) {
               )}
               extra={
                 <a className="upvote" onClick={upvote}>
-                  <Icon type="caret-up" style={{ color: upvotedColor }} />
-                  <h3 style={{ color: upvotedColor }}>{upvotes_number}</h3>
+                  <Icon type="caret-up" style={{ color }} />
+                  <h3 style={{ color }}>{number}</h3>
                 </a>
               }
             >
