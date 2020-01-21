@@ -60,7 +60,7 @@ function Discussion({ discussion }) {
         >
           <div dangerouslySetInnerHTML={{ __html: discussion.core }} />
         </Card>
-        {isLoadingComments ? <LoadingIcon /> : <FeedComments comments={comments} />}
+        {isLoadingComments ? <LoadingIcon /> : <FeedComments comments={comments} setComments={setComments} />}
       </div>
     </>
   )
