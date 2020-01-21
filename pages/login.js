@@ -131,7 +131,7 @@ function Login(props) {
         </div>
       </div>
       <style scoped>{`
-      body {
+      .login-page {
         background-image: linear-gradient(to bottom right,var(--dataforest_blue), var(--dataforest_dark));
         background-size: cover;
         background-repeat: no-repeat;
