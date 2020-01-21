@@ -18,7 +18,6 @@ const FormItem = Form.Item;
 const ListItem = List.Item;
 
 function Feed(props) {
-  console.log(props.discussions)
   const [discussions, setDiscussions] = useState(props.discussions);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
