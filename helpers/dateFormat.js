@@ -1,7 +1,7 @@
 import moment from 'moment';
 
 export function formatDate(date) {
-  const momentDate = moment(date);
+  const momentDate = moment.utc(date).local();
   const momentNow = moment();
 
   const minDiff = momentNow.diff(momentDate, "minutes");

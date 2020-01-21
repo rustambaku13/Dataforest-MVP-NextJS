@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Comment, Avatar, Button, Form } from 'antd';
+import { Comment, Avatar, Button } from 'antd';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { createDiscussionComment } from '../../services/discussions';
@@ -53,17 +53,14 @@ function Editor({ id, setComments }) {
 
   return (
     <div>
-      <Form.Item>
-        <ReactQuill name="content" onChange={setValue} value={value} />
-      </Form.Item>
-      <Form.Item>
-        <Button
-          htmlType="submit"
-          loading={isSubmitting}
-          onClick={submit}
-          type="primary"
-        >Comment</Button>
-      </Form.Item>
+      <ReactQuill name="content" onChange={setValue} value={value} />
+      <Button
+        htmlType="submit"
+        loading={isSubmitting}
+        onClick={submit}
+        type="primary"
+        style={{ marginTop: '1.2rem' }}
+      >Comment</Button>
     </div>
   );
 }
