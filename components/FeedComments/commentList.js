@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Comment,
   Avatar,
@@ -21,6 +22,29 @@ function CommentList({ comments }) {
 }
 
 function CommentItem({ item }) {
+  const [upvotes_number, setUpvotes_number] = useState(item.upvotes_number);
+  const [upvotedColor, setUpvotedColor] = useState(item.upvoted ? '#1890ff' : '#BBB');
+  const [upvoted, setUpvoted] = useState(item.upvoted);
+
+  const Router = useRouter();
+  const { id } = Router.query;
+
+  function upvote() {
+    upvoteComment({ discussionID: id, commentID: item.id });
+
+    // subtract if already upvoted
+    if (upvoted) {
+      setUpvotes_number(prev => prev - 1);
+      setUpvotedColor('#BBB');
+      setUpvoted(false);
+    }
+    else {
+      setUpvotes_number(prev => prev + 1);
+      setUpvotedColor('#1890ff');
+      setUpvoted(true);
+    }
+  }
+
   return (
     <Comment
       author={<Link href={`/user/${item.author.id}`}><a>{item.author.first_name} {item.author.last_name}</a></Link>}
@@ -28,12 +52,12 @@ function CommentItem({ item }) {
       content={<p dangerouslySetInnerHTML={{ __html: item.comment }}></p>}
       datetime={formatDate(item.timestamp)}
       actions={[
-        <span key="like">
+        <span key="like" style={{ cursor: 'pointer' }} onClick={upvote}>
           <Icon
             type="caret-up"
-            //theme={action === 'liked' ? 'filled' : 'outlined'}
+            style={{ color: upvotedColor }}
           />
-          <span style={{ paddingLeft: 8, cursor: 'auto' }}>{item.upvotes_number}</span>
+          <span style={{ paddingLeft: 8, color: upvotedColor }}>{upvotes_number}</span>
         </span>,
         <span key="reply-to">Comment</span>
       ]}
