@@ -10,7 +10,7 @@ function CommentList({ comments }) {
   return (
     <List
       dataSource={comments}
-      header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+      header={`${comments.length} ${comments.length > 1 ? 'comments' : 'comment'}`}
       itemLayout="horizontal"
       renderItem={item => (
         <Comment

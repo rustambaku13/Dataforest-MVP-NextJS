@@ -18,11 +18,11 @@ const FormItem = Form.Item;
 const ListItem = List.Item;
 
 function Feed(props) {
+  console.log(props.discussions)
   const [discussions, setDiscussions] = useState(props.discussions);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerWidth, setDrawerWidth] = useState(720);
-  const Router = useRouter();
   useProtectedRoute(auth => !auth);
 
   const effectDependencies = typeof window === 'undefined' ? [] : [window.innerWidth];
@@ -127,6 +127,8 @@ function Feed(props) {
 
 function FeedListItem({ item }) {
   const [upvotes_number, setUpvotes_number] = useState(item.upvotes_number);
+  const [upvotedColor, setUpvotedColor] = useState(item.upvoted ? '#1890ff' : '#BBB');
+  const [upvoted, setUpvoted] = useState(item.upvoted);
   const Router = useRouter();
 
   const handleUsernameClick = (id) => (e) => {
@@ -137,14 +139,25 @@ function FeedListItem({ item }) {
   const upvote = (id) => (e) => {
     e.stopPropagation();
     upvoteDiscussion({ id });
-    setUpvotes_number(prev => prev + 1);
+
+    // subtract if already upvoted
+    if (upvoted) {
+      setUpvotes_number(prev => prev - 1);
+      setUpvotedColor('#BBB');
+      setUpvoted(false);
+    }
+    else {
+      setUpvotes_number(prev => prev + 1);
+      setUpvotedColor('#1890ff');
+      setUpvoted(true);
+    }
   }
 
   return (
     <ListItem key={item.id} style={{ paddingLeft: 15, paddingRight: 15 }} onClick={() => Router.push(`/feed/${item.id}`)}>
       <a className="upvote" onClick={upvote(item.id)}>
-        <Icon type="caret-up" />
-        <h3>{upvotes_number}</h3>
+        <Icon type="caret-up" style={{ color: upvotedColor }} />
+        <h3 style={{ color: upvotedColor }}>{upvotes_number}</h3>
       </a>
       <Avatar className="avatar" shape="square" src={item.author.profile_pic} />
       <div className="discussion-title">
