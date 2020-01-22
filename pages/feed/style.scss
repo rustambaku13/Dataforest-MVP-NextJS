@@ -15,6 +15,7 @@
       width: 20%;
       padding: 25px;
       border-right: 2px solid #e8e8e8;
+      background: #fafafa;
     }
     .right {
       width: 80%;
@@ -24,16 +25,23 @@
     }
   }
 
-  .upvote {
+  a.upvote {
     display: block;
     width: 40px;
     height: 40px;
     text-align: center;
     transition: 0.3s;
-    > * { font-size: 16px; color: #BBB; }
-    > h3 { line-height: 14px; }
+    > * {
+      font-size: 16px;
+      color: #bbb;
+    }
+    > h3 {
+      line-height: 14px;
+    }
   }
-  .upvote:hover {
-    > * { color: #1890ff; }
+  a.upvote:hover {
+    > * {
+      color: #1890ff !important;
+    }
   }
 }

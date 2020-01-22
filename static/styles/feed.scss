@@ -20,11 +20,18 @@
         text-align: center;
         margin-right: 0.7rem;
         transition: 0.3s;
-        > * { font-size: 16px; color: #BBB; }
-        > h3 { line-height: 14px; }
+        > * {
+          font-size: 16px;
+          color: #bbb;
+        }
+        > h3 {
+          line-height: 14px;
+        }
       }
       .upvote:hover {
-        > * { color: #1890ff; }
+        > * {
+          color: #1890ff !important;
+        }
       }
 
       .avatar {
@@ -34,10 +41,14 @@
       }
 
       .discussion-title {
-        > h3 { font-size: 18px; }
+        > h3 {
+          font-size: 18px;
+        }
       }
 
-      h3 { margin: 0 }
+      h3 {
+        margin: 0;
+      }
     }
 
     .ant-list-item:hover {
@@ -64,5 +75,4 @@
     overflow: hidden;
     overflow-y: auto;
   }
-
 }
