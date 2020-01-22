@@ -12,6 +12,7 @@ import {
 import { formatDate } from '../../helpers/dateFormat';
 import { upvoteComment, replyComment } from '../../services/discussions';
 import useUpvote from '../../hooks/useUpvote';
+import { isEditorEmpty } from '../../helpers/formValidation';
 
 const ReactQuill = dynamic(
   () => import('react-quill'),
@@ -50,14 +51,13 @@ function CommentItem(props) {
     e.preventDefault();
 
     // check if empty
-    if (value.trim().length) {
+    if (!isEditorEmpty(value)) {
 
       // start loading
       setIsSubmitting(true);
 
       // get returned comment data from server
       const data = await replyComment({ discussionID: id, commentID: item.id, comment: value });
-      console.log({ data, item })
 
       // update replies on UI
       setItem(prev => ({ ...prev, comments: [...prev.comments, data] }));

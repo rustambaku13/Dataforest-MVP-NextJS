@@ -4,6 +4,7 @@ import { Comment, Avatar } from 'antd';
 import { useRouter } from 'next/router';
 import { createDiscussionComment } from '../../services/discussions';
 import CommentList, { Editor } from './commentList';
+import { isEditorEmpty } from '../../helpers/formValidation';
 import './style.scss';
 
 function FeedComments({ comments, setComments }) {
@@ -19,7 +20,7 @@ function FeedComments({ comments, setComments }) {
     e.preventDefault();
 
     // check if empty
-    if (value.trim().length) {
+    if (!isEditorEmpty(value)) {
 
       // start loading
       setIsSubmitting(true);
