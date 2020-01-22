@@ -54,6 +54,7 @@ function Discussion({ discussion }) {
     <>
       <Head>
         <link rel="stylesheet" href="//cdn.quilljs.com/1.2.6/quill.snow.css" />
+        <title key="title">{discussion.title}</title>
       </Head>
       <div className="discussion-thread">
         <div className="main-discussion">

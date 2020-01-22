@@ -76,3 +76,15 @@ export async function upvoteComment({ discussionID, commentID }) {
     throw e;
   }
 }
+
+export async function replyComment({ discussionID, commentID, comment }) {
+  try {
+    const { data } = await axios.post(`${base_url}/discussions/${discussionID}/comments/${commentID}/reply/`, {
+      comment
+    });
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+}

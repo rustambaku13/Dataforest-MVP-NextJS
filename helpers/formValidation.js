@@ -1,5 +1,12 @@
 import validator from 'validator';
 
+export const isEditorEmpty = (text) => {
+  if (!text.replace(/<(.|\n)*?>/g, '').trim().length) {
+    return true;
+  }
+  return false;
+}
+
 export const validateName = (rule, value, callback) => {
   if (validator.isEmpty(value)) {
     callback('Please provide your username!');
