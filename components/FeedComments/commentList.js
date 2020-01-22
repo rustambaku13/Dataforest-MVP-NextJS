@@ -49,20 +49,25 @@ function CommentItem(props) {
   async function submitReply(e) {
     e.preventDefault();
 
-    // start loading
-    setIsSubmitting(true);
+    // check if empty
+    if (value.trim().length) {
 
-    // get returned comment data from server
-    const data = await replyComment({ discussionID: id, commentID: item.id, comment: value });
+      // start loading
+      setIsSubmitting(true);
 
-    // update replies on UI
-    setItem( prev => ({ ...prev, comments: [data, ...prev.comments] }) );
+      // get returned comment data from server
+      const data = await replyComment({ discussionID: id, commentID: item.id, comment: value });
+      console.log({ data, item })
 
-    // clear input
-    setValue("");
+      // update replies on UI
+      setItem(prev => ({ ...prev, comments: [...prev.comments, data] }));
 
-    // cancel loading
-    setIsSubmitting(false);
+      // clear input
+      setValue("");
+
+      // cancel loading
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -79,21 +84,13 @@ function CommentItem(props) {
           />
           <span style={{ paddingLeft: 8, color }}>{number}</span>
         </span>,
-        <span key="reply-to" onClick={() => setReplyVisible(prev => !prev)}>Reply</span>
+        <span key="reply-to" onClick={() => setReplyVisible(prev => !prev)}>Reply{item.comments.length ? ` (${item.comments.length})` : null}</span>
       ]}
     >
       {
         replyVisible &&
         item.comments.length > 0 &&
-        item.comments.map((reply) => (
-          <Comment
-            author={<Link href={`/user/${reply.author.id}`}><a>{reply.author.first_name} {reply.author.last_name}</a></Link>}
-            avatar={<Avatar shape="square" src={reply.author.profile_pic} style={{ marginTop: 4 }} />}
-            content={<p dangerouslySetInnerHTML={{ __html: reply.comment }}></p>}
-            datetime={formatDate(reply.timestamp)}
-            key={reply.id}
-          />
-        ))
+        <CommentList comments={item.comments} />
       }
       {
         replyVisible &&

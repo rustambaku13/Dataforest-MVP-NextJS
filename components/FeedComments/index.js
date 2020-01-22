@@ -18,20 +18,24 @@ function FeedComments({ comments, setComments }) {
   async function submitComment(e) {
     e.preventDefault();
 
-    // start loading
-    setIsSubmitting(true);
+    // check if empty
+    if (value.trim().length) {
 
-    // get returned comment data from server
-    const data = await createDiscussionComment({ id, comment: value });
+      // start loading
+      setIsSubmitting(true);
 
-    // update comments on UI
-    setComments(prev => [data, ...prev]);
+      // get returned comment data from server
+      const data = await createDiscussionComment({ id, comment: value });
 
-    // clear input
-    setValue("");
+      // update comments on UI
+      setComments(prev => [...prev, data]);
 
-    // cancel loading
-    setIsSubmitting(false);
+      // clear input
+      setValue("");
+
+      // cancel loading
+      setIsSubmitting(false);
+    }
   }
 
   return (
