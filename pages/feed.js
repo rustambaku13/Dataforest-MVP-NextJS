@@ -8,6 +8,7 @@ import { Card, Drawer, Row, Col, Input, Form, Button, List, Avatar, Icon } from 
 import { getDiscussions, createDiscussion, upvoteDiscussion } from '../services/discussions';
 import { formatDate } from '../helpers/dateFormat';
 import useUpvote from '../hooks/useUpvote';
+import useFlexibleWidth from '../hooks/useFlexibleWidth';
 import '../static/styles/feed.scss';
 
 const ReactQuill = dynamic(
@@ -23,13 +24,8 @@ function Feed(props) {
   const [discussions, setDiscussions] = useState(props.discussions);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [drawerWidth, setDrawerWidth] = useState(720);
+  const drawerWidth = useFlexibleWidth(720);
   useProtectedRoute(auth => !auth);
-
-  const effectDependencies = typeof window === 'undefined' ? [] : [window.innerWidth];
-  useEffect(() => {
-    setDrawerWidth(window.innerWidth > 720 ? 720 : "100%");
-  }, effectDependencies);
 
   const { getFieldDecorator, getFieldsValue, validateFields } = props.form;
 
@@ -80,7 +76,7 @@ function Feed(props) {
           title={'Discussion Threads'}
           extra={<a onClick={() => setDrawerOpen(true)}>New Discussion</a>}
         >
-          {discussions.length ? renderDiscussions() : 'No discussion posted yet!'}
+          {discussions.length ? renderDiscussions() : <div style={{ padding: 15 }}>No discussion posted yet!</div>}
         </Card>
       </div>
       <Drawer

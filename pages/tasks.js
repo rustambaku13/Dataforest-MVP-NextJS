@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import useProtectedRoute from '../hooks/useProtectedRoute';
+import useFlexibleWidth from '../hooks/useFlexibleWidth';
 import TopHeader from '../components/TopHeader';
 import { FilterContainer, Option, Result } from '../components/FilterResult';
 import {
@@ -151,6 +152,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
   const [modal, setModal] = useState(false);
   const [labels, setLabels] = useState([]);
   const [labelsDrawer, setLabelsDrawer] = useState(false);
+  const drawerWidth = useFlexibleWidth(720);
 
   const {
     getFieldDecorator,
@@ -185,7 +187,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
   return (
     <Drawer
       title="Create a new Task"
-      width="50%"
+      width={drawerWidth}
       onClose={() => setIsDrawerOpen(false)}
       visible={isDrawerOpen}
       bodyStyle={{ paddingBottom: 80 }}>
@@ -193,7 +195,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
       <Form onSubmit={handleSubmit} layout="vertical">
         <Drawer
           title="Define Labels"
-          width="30%"
+          width="50%"
           visible={labelsDrawer}
           bodyStyle={{ paddingBottom: 80 }}
           onClose={() => setLabelsDrawer(false)}>
@@ -397,7 +399,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
                   ]
                 })(
                   <InputNumber
-                    min="0"
+                    min={0}
                     placeholder="200"
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     parser={value => value.replace(/\$\s?|(,*)/g, '')}
