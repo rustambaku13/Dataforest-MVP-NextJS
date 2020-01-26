@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
 import useProtectedRoute from '../hooks/useProtectedRoute';
 import TopHeader from '../components/TopHeader';
 import { FilterContainer, Option, Result } from '../components/FilterResult';
@@ -22,6 +24,7 @@ import {
   Radio
 } from 'antd';
 import moment from 'moment';
+import { getAllTasks, getMyTasks } from '../services/tasks';
 
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -29,7 +32,8 @@ const { TabPane } = Tabs;
 // Disable days before today
 const disabledDate = (current) => current && current < moment().startOf('day');
 
-function Tasks() {
+function Tasks({ allTasks, myTasks }) {
+  console.log({ allTasks, myTasks });
   const [category, setCategory] = useState('image');
   const [tab, setTab] = useState('public');
   const [drawer, setDrawer] = useState(false);
@@ -46,6 +50,9 @@ function Tasks() {
 
   return (
     <>
+      <Head>
+        <link rel="stylesheet" href="/static/css/tasks.css" />
+      </Head>
       <TopHeader />
       <FilterContainer>
         <Option>
@@ -108,10 +115,24 @@ function Tasks() {
           </div>
           <Tabs activeKey={tab} onChange={key => setTab(key)}>
             <TabPane tab="PUBLIC TASKS" key="public">
-              <Alert message="No data has been found!" type="warning" />
+              {
+                !allTasks.length ? <Alert message="No data has been found!" type="warning" />
+                  : (
+                    <div className="task-box">
+                      {allTasks.map((task, i) => <TaskItem task={task} key={`allTask-${i}`} />)}
+                    </div>
+                  )
+              }
             </TabPane>
             <TabPane tab="MY TASKS" key="my">
-              <Alert message="No data has been found!" type="warning" />
+              {
+                !myTasks.length ? <Alert message="No data has been found!" type="warning" />
+                  : (
+                    <div className="task-box">
+                      {myTasks.map((task, i) => <TaskItem task={task} key={`myTask-${i}`} />)}
+                    </div>
+                  )
+              }
             </TabPane>
           </Tabs>
         </Result>
@@ -178,7 +199,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
           onClose={() => setLabelsDrawer(false)}>
           <Modal
             visible={modal}
-            closable="true"
+            closable={true}
             onCancel={() => setModal(false)}
             title="Add New Label"
             footer={[
@@ -571,5 +592,43 @@ const CreateTaskDrawer = Form.create()(function (props) {
     </Drawer>
   )
 });
+
+function TaskItem({ task }) {
+  return (
+    <Link href={`/task/${task.id}`}>
+      <a>
+        <div className="task-details-container">
+          <div>
+            <h2 className="task-title">{task.title}</h2>
+            <ul className="task-icons">
+              <li>
+                <span className="ti-timer" /> {moment(task.deadline, 'YYYY-MM-DD').format('MMM. DD, YYYY')}
+              </li>
+            </ul>
+            <h6 className="task-description">
+              {task.description}
+            </h6>
+            <div className="task-tags">
+              {task.tags.map((tag, i) => <span key={i}>{tag}</span>)}
+            </div>
+          </div>
+        </div>
+        <div className="task-pricing-container">
+          <div className="task-pricing">
+            <div className="task-offers">
+              <strong>${task.price_per_datum.toFixed(2)}/datum</strong>
+            </div>
+          </div>
+        </div>
+      </a>
+    </Link>
+  )
+}
+
+Tasks.getInitialProps = async () => {
+  const allTasks = await getAllTasks();
+  const myTasks = await getMyTasks();
+  return { allTasks, myTasks };
+}
 
 export default Tasks;
