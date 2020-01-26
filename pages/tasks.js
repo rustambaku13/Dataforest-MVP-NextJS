@@ -139,23 +139,26 @@ const CreateTaskDrawer = Form.create()(function (props) {
   } = form;
 
   function addLabel() {
-    validateFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation']).then(() => {
-      setLabels(prev => [
-        ...prev,
-        {
-          name: getFieldValue("newLabelName"),
-          description: getFieldValue("newLabelDesc"),
-          label_type: getFieldValue("newLabelType")
-        }
-      ]);
-      setModal(false);
-      resetFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation']);
-    });
+    validateFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation'])
+      .then(() => {
+        setLabels(prev => [
+          ...prev,
+          {
+            name: getFieldValue("newLabelName"),
+            description: getFieldValue("newLabelDesc"),
+            label_type: getFieldValue("newLabelType")
+          }
+        ]);
+        setModal(false);
+        resetFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation']);
+      });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
-    form.validateFields()
+    form.validateFields();
+
+    setIsDrawerOpen(false);
   }
 
   return (
@@ -239,7 +242,12 @@ const CreateTaskDrawer = Form.create()(function (props) {
             <Row>
               <Col span={10}>
                 <Form.Item label="Has Annotation">
-                  {getFieldDecorator('newLabelHas', { initialValue: false })(<Switch />)}
+                  {
+                    getFieldDecorator('newLabelHas', {
+                      initialValue: false,
+                      valuePropName: 'checked'
+                    })(<Switch />)
+                  }
                 </Form.Item>
               </Col>
               <Col span={14}>
@@ -295,7 +303,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
               background: '#fff',
               textAlign: 'right'
             }}>
-            <Button style={{ marginRight: 8 }}>
+            <Button style={{ marginRight: 8 }} onClick={() => setLabelsDrawer(false)}>
               Back
             </Button>
             <Button
@@ -564,4 +572,4 @@ const CreateTaskDrawer = Form.create()(function (props) {
   )
 });
 
-export default Form.create()(Tasks);
+export default Tasks;
