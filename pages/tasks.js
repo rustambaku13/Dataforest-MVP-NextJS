@@ -161,9 +161,19 @@ const CreateTaskDrawer = Form.create()(function (props) {
     resetFields,
   } = form;
 
+  // Handler function for first-level drawer
+  function handleProceed() {
+    validateFields(['title', 'task_type', 'description', 'price', 'deadline', 'quantity', 'extension', 'height', 'width', 'image_type', 'extension'])
+    .then(() => {
+      setLabelsDrawer(true);
+    });
+  }
+
+  // Handler function for modal
   function addLabel() {
     validateFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation'])
       .then(() => {
+        // Push new label into the state
         setLabels(prev => [
           ...prev,
           {
@@ -172,16 +182,118 @@ const CreateTaskDrawer = Form.create()(function (props) {
             label_type: getFieldValue("newLabelType")
           }
         ]);
+
+        // Close modal and set fields to its initial state
         setModal(false);
         resetFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation']);
       });
   }
 
+  // Handler function for final drawer (task creation)
   async function handleSubmit(e) {
     e.preventDefault();
     form.validateFields();
 
     setIsDrawerOpen(false);
+  }
+
+  // Conditional rendering function depending on task_type
+  function renderExtension() {
+    const task_type = getFieldValue('task_type');
+    switch (task_type) {
+      case "image":
+        return (
+          <>
+            <Col span={6}>
+              <Form.Item label="Extension">
+                {
+                  getFieldDecorator("extension", {
+                    rules: [
+                      {
+                        required: getFieldValue("task_type") === "image",
+                        message: 'Please input your Image Extension'
+                      }
+                    ]
+                  })(
+                    <Select>
+                      <Select.Option value="JPEG">JPEG</Select.Option>
+                      <Select.Option value="PNG">PNG</Select.Option>
+                      <Select.Option value="TIFF">TIFF</Select.Option>
+                    </Select>
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label="Height">
+                {
+                  getFieldDecorator("height", {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your Image Height'
+                      }
+                    ],
+                    placeholder: 200
+                  })(
+                    <InputNumber
+                      placeholder="px"
+                      style={{ width: "100%" }}
+                      min={0} />
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label="Width">
+                {
+                  getFieldDecorator("width", {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your Image Width'
+                      }
+                    ],
+                    placeholder: 200
+                  })(
+                    <InputNumber
+                      placeholder="px"
+                      style={{ width: "100%" }}
+                      min={0} />
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label="Type">
+                {
+                  getFieldDecorator("image_type", {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your Image Type'
+                      }
+                    ],
+                    placeholder: 200
+                  })(
+                    <Select>
+                      <Select.Option value="RGBA">RGBA</Select.Option>
+                      <Select.Option value="RGB">RGB</Select.Option>
+                      <Select.Option value="Grayscale">Grayscale</Select.Option>
+                    </Select>
+                  )
+                }
+              </Form.Item>
+            </Col>
+          </>
+        )
+      case "video":
+        return null;
+      case "audio":
+        return null;
+      case "statistics":
+        return null;
+    }
   }
 
   return (
@@ -195,7 +307,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
       <Form onSubmit={handleSubmit} layout="vertical">
         <Drawer
           title="Define Labels"
-          width="50%"
+          width={drawerWidth}
           visible={labelsDrawer}
           bodyStyle={{ paddingBottom: 80 }}
           onClose={() => setLabelsDrawer(false)}>
@@ -250,12 +362,12 @@ const CreateTaskDrawer = Form.create()(function (props) {
                       ]
                     })(
                       <Select style={{ width: '100%' }}>
-                        <Option value="integer">Integer Label</Option>
-                        <Option value="decimal">Decimal Label</Option>
-                        <Option value="boolean">Boolean Label</Option>
-                        <Option value="date">Date Label</Option>
-                        <Option value="text">Text Label</Option>
-                        <Option value="file">File Label</Option>
+                        <Select.Option value="integer">Integer Label</Select.Option>
+                        <Select.Option value="decimal">Decimal Label</Select.Option>
+                        <Select.Option value="boolean">Boolean Label</Select.Option>
+                        <Select.Option value="date">Date Label</Select.Option>
+                        <Select.Option value="text">Text Label</Select.Option>
+                        <Select.Option value="file">File Label</Select.Option>
                       </Select>
                     )
                   }
@@ -285,9 +397,9 @@ const CreateTaskDrawer = Form.create()(function (props) {
                       ],
                     })(
                       <Select style={{ width: "100%" }}>
-                        <Option value="ln">Line Annotation</Option>
-                        <Option value="rec">Rectangular Annotation</Option>
-                        <Option value="px">Point Annotation</Option>
+                        <Select.Option value="ln">Line Annotation</Select.Option>
+                        <Select.Option value="rec">Rectangular Annotation</Select.Option>
+                        <Select.Option value="px">Point Annotation</Select.Option>
                       </Select>
                     )
                   }
@@ -443,7 +555,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
                 })(
                   <InputNumber
                     style={{ width: "100%" }}
-                    min="0"
+                    min={0}
                     size="large" />
                 )
               }
@@ -458,113 +570,16 @@ const CreateTaskDrawer = Form.create()(function (props) {
                     style={{ width: '100%' }}
                     size="large"
                     placeholder="Tags Mode">
-                    <Option key="animals">Animals</Option>
-                    <Option key="fauna">Fauna</Option>
-                    <Option key="people">People</Option>
+                    <Select.Option key="animals">Animals</Select.Option>
+                    <Select.Option key="fauna">Fauna</Select.Option>
+                    <Select.Option key="people">People</Select.Option>
                   </Select>,
                 )
               }
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Tabs
-              tabBarStyle={{ display: "none" }}
-              hideAdd="true"
-              activeKey={getFieldValue("task_type")}>
-              <TabPane key="image">
-                <Col span={6}>
-                  <Form.Item label="Extension">
-                    {
-                      getFieldDecorator("extension", {
-                        rules: [
-                          {
-                            required: getFieldValue("task_type") === "image",
-                            message: 'Please input your Image Extension'
-                          }
-                        ]
-                      })(
-                        <Select>
-                          <Option value="JPEG">JPEG</Option>
-                          <Option value="PNG">PNG</Option>
-                          <Option value="TIFF">TIFF</Option>
-                        </Select>
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item label="Height">
-                    {
-                      getFieldDecorator("height", {
-                        rules: [
-                          {
-                            required: true,
-                            message: 'Please input your Image Height'
-                          }
-                        ],
-                        placeholder: 200
-                      })(
-                        <InputNumber
-                          placeholder="px"
-                          style={{ width: "100%" }}
-                          min="0" />
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item label="Width">
-                    {
-                      getFieldDecorator("width", {
-                        rules: [
-                          {
-                            required: true,
-                            message: 'Please input your Image Width'
-                          }
-                        ],
-                        placeholder: 200
-                      })(
-                        <InputNumber
-                          placeholder="px"
-                          style={{ width: "100%" }}
-                          min="0" />
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item label="Type">
-                    {
-                      getFieldDecorator("image_type", {
-                        rules: [
-                          {
-                            required: true,
-                            message: 'Please input your Image Type'
-                          }
-                        ],
-                        placeholder: 200
-                      })(
-                        <Select>
-                          <Option value="RGBA">RGBA</Option>
-                          <Option value="RGB">RGB</Option>
-                          <Option value="Grayscale">Grayscale</Option>
-                        </Select>
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-
-              </TabPane>
-              <TabPane key="video">
-                To be added ...
-                                </TabPane>
-              <TabPane key="audio">
-                To be added ...
-                                </TabPane>
-              <TabPane key="statistical">
-                To be added ...
-                                </TabPane>
-            </Tabs>
+            {renderExtension()}
           </Col>
 
         </Row>
@@ -581,14 +596,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
             textAlign: 'right'
           }}>
           <Button style={{ marginRight: 8 }} onClick={() => setIsDrawerOpen(false)}>Cancel</Button>
-          <Button
-            onClick={() => {
-              validateFields(['title', 'task_type', 'description', 'price', 'deadline', 'quantity', 'extension', 'height', 'width', 'image_type', 'extension']).then(() => {
-                setLabelsDrawer(true);
-              })
-            }}
-            type="primary"
-          >Proceed</Button>
+          <Button onClick={handleProceed} type="primary">Proceed</Button>
         </div>
       </Form>
     </Drawer>
