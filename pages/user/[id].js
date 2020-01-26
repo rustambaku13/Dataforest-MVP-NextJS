@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import useProtectedRoute from '../../hooks/useProtectedRoute';
+import { useProtectedRoute } from '../../hooks';
 import TopHeader from '../../components/TopHeader';
 import { getUserInfoByID } from '../../services/user';
 

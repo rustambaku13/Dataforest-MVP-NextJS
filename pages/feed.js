@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import useProtectedRoute from '../hooks/useProtectedRoute';
+import { useProtectedRoute, useUpvote, useFlexibleWidth } from '../hooks';
 import TopHeader from '../components/TopHeader';
 import { Card, Drawer, Row, Col, Input, Form, Button, List, Avatar, Icon } from 'antd';
 import { getDiscussions, createDiscussion, upvoteDiscussion } from '../services/discussions';
 import { formatDate } from '../helpers/dateFormat';
-import useUpvote from '../hooks/useUpvote';
-import useFlexibleWidth from '../hooks/useFlexibleWidth';
 import '../static/styles/feed.scss';
 
 const ReactQuill = dynamic(

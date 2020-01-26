@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import useProtectedRoute from '../hooks/useProtectedRoute';
-import useFlexibleWidth from '../hooks/useFlexibleWidth';
+import { useProtectedRoute, useFlexibleWidth } from '../hooks';
 import TopHeader from '../components/TopHeader';
 import { FilterContainer, Option, Result } from '../components/FilterResult';
 import {
@@ -164,9 +163,9 @@ const CreateTaskDrawer = Form.create()(function (props) {
   // Handler function for first-level drawer
   function handleProceed() {
     validateFields(['title', 'task_type', 'description', 'price', 'deadline', 'quantity', 'extension', 'height', 'width', 'image_type', 'extension'])
-    .then(() => {
-      setLabelsDrawer(true);
-    });
+      .then(() => {
+        setLabelsDrawer(true);
+      });
   }
 
   // Handler function for modal
