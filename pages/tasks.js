@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import useProtectedRoute from '../hooks/useProtectedRoute';
+import Link from 'next/link';
+import Head from 'next/head';
+import { useProtectedRoute, useFlexibleWidth } from '../hooks';
 import TopHeader from '../components/TopHeader';
 import { FilterContainer, Option, Result } from '../components/FilterResult';
 import {
@@ -22,6 +24,7 @@ import {
   Radio
 } from 'antd';
 import moment from 'moment';
+import { getAllTasks, getMyTasks } from '../services/tasks';
 
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -29,7 +32,8 @@ const { TabPane } = Tabs;
 // Disable days before today
 const disabledDate = (current) => current && current < moment().startOf('day');
 
-function Tasks() {
+function Tasks({ allTasks, myTasks }) {
+  console.log({ allTasks, myTasks });
   const [category, setCategory] = useState('image');
   const [tab, setTab] = useState('public');
   const [drawer, setDrawer] = useState(false);
@@ -46,6 +50,9 @@ function Tasks() {
 
   return (
     <>
+      <Head>
+        <link rel="stylesheet" href="/static/css/tasks.css" />
+      </Head>
       <TopHeader />
       <FilterContainer>
         <Option>
@@ -108,10 +115,24 @@ function Tasks() {
           </div>
           <Tabs activeKey={tab} onChange={key => setTab(key)}>
             <TabPane tab="PUBLIC TASKS" key="public">
-              <Alert message="No data has been found!" type="warning" />
+              {
+                !allTasks.length ? <Alert message="No data has been found!" type="warning" />
+                  : (
+                    <div className="task-box">
+                      {allTasks.map((task, i) => <TaskItem task={task} key={`allTask-${i}`} />)}
+                    </div>
+                  )
+              }
             </TabPane>
             <TabPane tab="MY TASKS" key="my">
-              <Alert message="No data has been found!" type="warning" />
+              {
+                !myTasks.length ? <Alert message="No data has been found!" type="warning" />
+                  : (
+                    <div className="task-box">
+                      {myTasks.map((task, i) => <TaskItem task={task} key={`myTask-${i}`} />)}
+                    </div>
+                  )
+              }
             </TabPane>
           </Tabs>
         </Result>
@@ -130,6 +151,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
   const [modal, setModal] = useState(false);
   const [labels, setLabels] = useState([]);
   const [labelsDrawer, setLabelsDrawer] = useState(false);
+  const drawerWidth = useFlexibleWidth(720);
 
   const {
     getFieldDecorator,
@@ -138,9 +160,19 @@ const CreateTaskDrawer = Form.create()(function (props) {
     resetFields,
   } = form;
 
+  // Handler function for first-level drawer
+  function handleProceed() {
+    validateFields(['title', 'task_type', 'description', 'price', 'deadline', 'quantity', 'extension', 'height', 'width', 'image_type', 'extension'])
+      .then(() => {
+        setLabelsDrawer(true);
+      });
+  }
+
+  // Handler function for modal
   function addLabel() {
     validateFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation'])
       .then(() => {
+        // Push new label into the state
         setLabels(prev => [
           ...prev,
           {
@@ -149,11 +181,14 @@ const CreateTaskDrawer = Form.create()(function (props) {
             label_type: getFieldValue("newLabelType")
           }
         ]);
+
+        // Close modal and set fields to its initial state
         setModal(false);
         resetFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation']);
       });
   }
 
+  // Handler function for final drawer (task creation)
   async function handleSubmit(e) {
     e.preventDefault();
     form.validateFields();
@@ -161,10 +196,109 @@ const CreateTaskDrawer = Form.create()(function (props) {
     setIsDrawerOpen(false);
   }
 
+  // Conditional rendering function depending on task_type
+  function renderExtension() {
+    const task_type = getFieldValue('task_type');
+    switch (task_type) {
+      case "image":
+        return (
+          <>
+            <Col span={6}>
+              <Form.Item label="Extension">
+                {
+                  getFieldDecorator("extension", {
+                    rules: [
+                      {
+                        required: getFieldValue("task_type") === "image",
+                        message: 'Please input your Image Extension'
+                      }
+                    ]
+                  })(
+                    <Select>
+                      <Select.Option value="JPEG">JPEG</Select.Option>
+                      <Select.Option value="PNG">PNG</Select.Option>
+                      <Select.Option value="TIFF">TIFF</Select.Option>
+                    </Select>
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label="Height">
+                {
+                  getFieldDecorator("height", {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your Image Height'
+                      }
+                    ],
+                    placeholder: 200
+                  })(
+                    <InputNumber
+                      placeholder="px"
+                      style={{ width: "100%" }}
+                      min={0} />
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label="Width">
+                {
+                  getFieldDecorator("width", {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your Image Width'
+                      }
+                    ],
+                    placeholder: 200
+                  })(
+                    <InputNumber
+                      placeholder="px"
+                      style={{ width: "100%" }}
+                      min={0} />
+                  )
+                }
+              </Form.Item>
+            </Col>
+            <Col span={6}>
+              <Form.Item label="Type">
+                {
+                  getFieldDecorator("image_type", {
+                    rules: [
+                      {
+                        required: true,
+                        message: 'Please input your Image Type'
+                      }
+                    ],
+                    placeholder: 200
+                  })(
+                    <Select>
+                      <Select.Option value="RGBA">RGBA</Select.Option>
+                      <Select.Option value="RGB">RGB</Select.Option>
+                      <Select.Option value="Grayscale">Grayscale</Select.Option>
+                    </Select>
+                  )
+                }
+              </Form.Item>
+            </Col>
+          </>
+        )
+      case "video":
+        return null;
+      case "audio":
+        return null;
+      case "statistics":
+        return null;
+    }
+  }
+
   return (
     <Drawer
       title="Create a new Task"
-      width="50%"
+      width={drawerWidth}
       onClose={() => setIsDrawerOpen(false)}
       visible={isDrawerOpen}
       bodyStyle={{ paddingBottom: 80 }}>
@@ -172,13 +306,13 @@ const CreateTaskDrawer = Form.create()(function (props) {
       <Form onSubmit={handleSubmit} layout="vertical">
         <Drawer
           title="Define Labels"
-          width="30%"
+          width={drawerWidth}
           visible={labelsDrawer}
           bodyStyle={{ paddingBottom: 80 }}
           onClose={() => setLabelsDrawer(false)}>
           <Modal
             visible={modal}
-            closable="true"
+            closable={true}
             onCancel={() => setModal(false)}
             title="Add New Label"
             footer={[
@@ -227,12 +361,12 @@ const CreateTaskDrawer = Form.create()(function (props) {
                       ]
                     })(
                       <Select style={{ width: '100%' }}>
-                        <Option value="integer">Integer Label</Option>
-                        <Option value="decimal">Decimal Label</Option>
-                        <Option value="boolean">Boolean Label</Option>
-                        <Option value="date">Date Label</Option>
-                        <Option value="text">Text Label</Option>
-                        <Option value="file">File Label</Option>
+                        <Select.Option value="integer">Integer Label</Select.Option>
+                        <Select.Option value="decimal">Decimal Label</Select.Option>
+                        <Select.Option value="boolean">Boolean Label</Select.Option>
+                        <Select.Option value="date">Date Label</Select.Option>
+                        <Select.Option value="text">Text Label</Select.Option>
+                        <Select.Option value="file">File Label</Select.Option>
                       </Select>
                     )
                   }
@@ -262,9 +396,9 @@ const CreateTaskDrawer = Form.create()(function (props) {
                       ],
                     })(
                       <Select style={{ width: "100%" }}>
-                        <Option value="ln">Line Annotation</Option>
-                        <Option value="rec">Rectangular Annotation</Option>
-                        <Option value="px">Point Annotation</Option>
+                        <Select.Option value="ln">Line Annotation</Select.Option>
+                        <Select.Option value="rec">Rectangular Annotation</Select.Option>
+                        <Select.Option value="px">Point Annotation</Select.Option>
                       </Select>
                     )
                   }
@@ -376,7 +510,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
                   ]
                 })(
                   <InputNumber
-                    min="0"
+                    min={0}
                     placeholder="200"
                     formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                     parser={value => value.replace(/\$\s?|(,*)/g, '')}
@@ -420,7 +554,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
                 })(
                   <InputNumber
                     style={{ width: "100%" }}
-                    min="0"
+                    min={0}
                     size="large" />
                 )
               }
@@ -435,113 +569,16 @@ const CreateTaskDrawer = Form.create()(function (props) {
                     style={{ width: '100%' }}
                     size="large"
                     placeholder="Tags Mode">
-                    <Option key="animals">Animals</Option>
-                    <Option key="fauna">Fauna</Option>
-                    <Option key="people">People</Option>
+                    <Select.Option key="animals">Animals</Select.Option>
+                    <Select.Option key="fauna">Fauna</Select.Option>
+                    <Select.Option key="people">People</Select.Option>
                   </Select>,
                 )
               }
             </Form.Item>
           </Col>
           <Col span={24}>
-            <Tabs
-              tabBarStyle={{ display: "none" }}
-              hideAdd="true"
-              activeKey={getFieldValue("task_type")}>
-              <TabPane key="image">
-                <Col span={6}>
-                  <Form.Item label="Extension">
-                    {
-                      getFieldDecorator("extension", {
-                        rules: [
-                          {
-                            required: getFieldValue("task_type") === "image",
-                            message: 'Please input your Image Extension'
-                          }
-                        ]
-                      })(
-                        <Select>
-                          <Option value="JPEG">JPEG</Option>
-                          <Option value="PNG">PNG</Option>
-                          <Option value="TIFF">TIFF</Option>
-                        </Select>
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item label="Height">
-                    {
-                      getFieldDecorator("height", {
-                        rules: [
-                          {
-                            required: true,
-                            message: 'Please input your Image Height'
-                          }
-                        ],
-                        placeholder: 200
-                      })(
-                        <InputNumber
-                          placeholder="px"
-                          style={{ width: "100%" }}
-                          min="0" />
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item label="Width">
-                    {
-                      getFieldDecorator("width", {
-                        rules: [
-                          {
-                            required: true,
-                            message: 'Please input your Image Width'
-                          }
-                        ],
-                        placeholder: 200
-                      })(
-                        <InputNumber
-                          placeholder="px"
-                          style={{ width: "100%" }}
-                          min="0" />
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-                <Col span={6}>
-                  <Form.Item label="Type">
-                    {
-                      getFieldDecorator("image_type", {
-                        rules: [
-                          {
-                            required: true,
-                            message: 'Please input your Image Type'
-                          }
-                        ],
-                        placeholder: 200
-                      })(
-                        <Select>
-                          <Option value="RGBA">RGBA</Option>
-                          <Option value="RGB">RGB</Option>
-                          <Option value="Grayscale">Grayscale</Option>
-                        </Select>
-                      )
-                    }
-                  </Form.Item>
-                </Col>
-
-              </TabPane>
-              <TabPane key="video">
-                To be added ...
-                                </TabPane>
-              <TabPane key="audio">
-                To be added ...
-                                </TabPane>
-              <TabPane key="statistical">
-                To be added ...
-                                </TabPane>
-            </Tabs>
+            {renderExtension()}
           </Col>
 
         </Row>
@@ -558,18 +595,49 @@ const CreateTaskDrawer = Form.create()(function (props) {
             textAlign: 'right'
           }}>
           <Button style={{ marginRight: 8 }} onClick={() => setIsDrawerOpen(false)}>Cancel</Button>
-          <Button
-            onClick={() => {
-              validateFields(['title', 'task_type', 'description', 'price', 'deadline', 'quantity', 'extension', 'height', 'width', 'image_type', 'extension']).then(() => {
-                setLabelsDrawer(true);
-              })
-            }}
-            type="primary"
-          >Proceed</Button>
+          <Button onClick={handleProceed} type="primary">Proceed</Button>
         </div>
       </Form>
     </Drawer>
   )
 });
+
+function TaskItem({ task }) {
+  return (
+    <Link href={`/task/${task.id}`}>
+      <a>
+        <div className="task-details-container">
+          <div>
+            <h2 className="task-title">{task.title}</h2>
+            <ul className="task-icons">
+              <li>
+                <span className="ti-timer" /> {moment(task.deadline, 'YYYY-MM-DD').format('MMM. DD, YYYY')}
+              </li>
+            </ul>
+            <h6 className="task-description">
+              {task.description}
+            </h6>
+            <div className="task-tags">
+              {task.tags.map((tag, i) => <span key={i}>{tag}</span>)}
+            </div>
+          </div>
+        </div>
+        <div className="task-pricing-container">
+          <div className="task-pricing">
+            <div className="task-offers">
+              <strong>${task.price_per_datum.toFixed(2)}/datum</strong>
+            </div>
+          </div>
+        </div>
+      </a>
+    </Link>
+  )
+}
+
+Tasks.getInitialProps = async () => {
+  const allTasks = await getAllTasks();
+  const myTasks = await getMyTasks();
+  return { allTasks, myTasks };
+}
 
 export default Tasks;

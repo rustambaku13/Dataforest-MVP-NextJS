@@ -8,7 +8,7 @@ import { Form, Input, Icon, Tooltip, Button, message } from 'antd';
 import * as validators from '../helpers/formValidation';
 import { setAuthUser } from '../actions';
 import { login, getUserInfoByToken } from '../services/user';
-import useProtectedRoute from '../hooks/useProtectedRoute';
+import { useProtectedRoute } from '../hooks';
 import '../static/styles/login.scss';
 
 const FormItem = Form.Item;

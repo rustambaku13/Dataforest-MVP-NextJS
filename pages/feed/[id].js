@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import useProtectedRoute from '../../hooks/useProtectedRoute';
+import { useProtectedRoute, useUpvote } from '../../hooks';
 import { getDiscussionByID, getDiscussionComments, upvoteDiscussion } from '../../services/discussions';
 import { Card, Icon, Avatar } from 'antd';
 import FeedComments from '../../components/FeedComments';
 import { formatDate } from '../../helpers/dateFormat';
-import useUpvote from '../../hooks/useUpvote';
 import './style.scss';
 import Link from 'next/link';
 

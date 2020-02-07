@@ -11,7 +11,7 @@ import {
 } from 'antd';
 import { formatDate } from '../../helpers/dateFormat';
 import { upvoteComment, replyComment } from '../../services/discussions';
-import useUpvote from '../../hooks/useUpvote';
+import { useUpvote } from '../../hooks';
 import { isEditorEmpty } from '../../helpers/formValidation';
 
 const ReactQuill = dynamic(

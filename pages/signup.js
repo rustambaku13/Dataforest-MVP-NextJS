@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Meta from '../components/Meta';
 import { Form, Input, Icon, Tooltip, Button, Upload, message } from 'antd';
 import * as validators from '../helpers/formValidation';
-import useProtectedRoute from '../hooks/useProtectedRoute';
+import { useProtectedRoute } from '../hooks';
 import { signup } from '../services/user';
 import '../static/styles/signup.scss';
 
