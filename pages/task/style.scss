@@ -1,0 +1,18 @@
+div.task-box.task-box-signed {
+  width: 90%;
+  max-width: 700px;
+  margin: 3rem auto;
+  display: flex;
+
+  .task-info {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+    
+    > * {
+      padding: 1rem;
+      h1 {
+        margin: 0
+      }
+    }
+  }
+}

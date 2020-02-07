@@ -30,3 +30,13 @@ export async function getTags() {
     throw e;
   }
 }
+
+export async function getTaskByID(id) {
+  try {
+    const { data } = await axios.get(`${base_url}/tasks/${id}/`);
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+}
