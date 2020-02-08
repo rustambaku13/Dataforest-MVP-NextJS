@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { base_url } from '../constants/api';
+import moment from 'moment';
 
 export async function getAllTasks(limit = 20, offset = 20) {
   try {
@@ -39,4 +40,28 @@ export async function getTaskByID(id) {
   catch (e) {
     throw e;
   }
+}
+
+export async function createTask(task) {
+  const { title, description, price, quantity, task_type, deadline, extension, height, width, image_type, labels } = task;
+  try {
+    const { data } = await axios.post(`${base_url}/tasks/`, {
+      title,
+      description,
+      price,
+      quantity,
+      task_type,
+      deadline: moment(deadline).format('YYYY-MM-DD'),
+      extension,
+      height,
+      width,
+      image_type,
+      labels
+    });
+    return data;
+  }
+  catch (e) {
+    throw e;
+  }
+
 }
