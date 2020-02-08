@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
+import { useRouter, Router } from 'next/router';
 import { useProtectedRoute, useFlexibleWidth } from '../hooks';
 import TopHeader from '../components/TopHeader';
 import { FilterContainer, Option, Result } from '../components/FilterResult';
@@ -24,7 +25,7 @@ import {
   Radio
 } from 'antd';
 import moment from 'moment';
-import { getAllTasks, getMyTasks } from '../services/tasks';
+import { getAllTasks, getMyTasks, createTask } from '../services/tasks';
 
 const { TextArea } = Input;
 const { TabPane } = Tabs;
@@ -150,7 +151,9 @@ const CreateTaskDrawer = Form.create()(function (props) {
 
   const [modal, setModal] = useState(false);
   const [labels, setLabels] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [labelsDrawer, setLabelsDrawer] = useState(false);
+  const Router = useRouter();
   const drawerWidth = useFlexibleWidth(720);
 
   const {
@@ -158,6 +161,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
     validateFields,
     getFieldValue,
     resetFields,
+    getFieldsValue
   } = form;
 
   // Handler function for first-level drawer
@@ -189,11 +193,23 @@ const CreateTaskDrawer = Form.create()(function (props) {
   }
 
   // Handler function for final drawer (task creation)
-  async function handleSubmit(e) {
-    e.preventDefault();
+  async function handleSubmit() {
     form.validateFields();
 
+    // Start loading
+    setIsSubmitting(true);
+    const task = {
+      ...getFieldsValue(['title', 'task_type', 'description', 'price', 'deadline', 'quantity', 'extension', 'height', 'width', 'image_type', 'extension']),
+      labels
+    };
+
+    const data = await createTask(task);
+
+    setLabelsDrawer(false);
     setIsDrawerOpen(false);
+
+    // Redirect to the new task page 
+    Router.push(`/task/${data.id}`);
   }
 
   // Conditional rendering function depending on task_type
@@ -440,9 +456,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
             <Button style={{ marginRight: 8 }} onClick={() => setLabelsDrawer(false)}>
               Back
             </Button>
-            <Button
-              htmlType="submit"
-              type="primary">
+            <Button type="primary" onClick={handleSubmit} loading={isSubmitting}>
               Submit Task
             </Button>
           </div>
@@ -490,7 +504,14 @@ const CreateTaskDrawer = Form.create()(function (props) {
           <Col span={24}>
             <Form.Item label="Description">
               {
-                getFieldDecorator('description')(
+                getFieldDecorator('description', {
+                  rules: [
+                    {
+                      required: true,
+                      message: 'Please input your description'
+                    }
+                  ]
+                })(
                   <TextArea
                     autoSize={{ minRows: 5, maxRows: 8 }}
                     placeholder="Detailed explanation ... " />
