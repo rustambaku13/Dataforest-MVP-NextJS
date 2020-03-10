@@ -65,4 +65,28 @@ MyApp.getInitialProps = async (props) => {
   return { pageProps, token: data ? token : null };
 }
 
+
+// MyApp.getInitialProps = async (props) => {
+//   const { Component, ctx } = props;
+//   let pageProps = {};
+
+//   const { token } = nextCookie(ctx);
+
+//   let data;
+//   try {
+//     data = await getUserInfoByToken(token);
+//   }
+//   catch (e) {
+//     data = null;
+//   }
+//   ctx.store.dispatch(setAuthUser(data));
+
+//   // call getInitialProps if any
+//   if (Component.getInitialProps) {
+//     pageProps = await Component.getInitialProps(ctx);
+//   }
+
+//   return { pageProps, token: data ? token : null };
+// }
+
 export default withRedux(makestore)(MyApp);

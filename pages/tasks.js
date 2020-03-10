@@ -153,6 +153,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
   const [labels, setLabels] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [labelsDrawer, setLabelsDrawer] = useState(false);
+  const [sublabelname,setsublabelname] = useState(null);
   const Router = useRouter();
   const drawerWidth = useFlexibleWidth(720);
 
@@ -177,19 +178,27 @@ const CreateTaskDrawer = Form.create()(function (props) {
     validateFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation'])
       .then(() => {
         // Push new label into the state
-        setLabels(prev => [
-          ...prev,
-          {
-            name: getFieldValue("newLabelName"),
-            description: getFieldValue("newLabelDesc"),
-            label_type: getFieldValue("newLabelType")
-          }
-        ]);
+        if(!sublabelname){
+          setLabels(prev => [
+            ...prev,
+            {
+              name: getFieldValue("newLabelName"),
+              description: getFieldValue("newLabelDesc"),
+              label_type: getFieldValue("newLabelType"),
+              children:[],
+              annotation:getFieldValue("newLabelHas")?getFieldValue("newLabelAnnotation"):null
+            }
+          ]);
+        }else{
+
+          
+        }
 
         // Close modal and set fields to its initial state
         setModal(false);
         resetFields(['newLabelName', 'newLabelDesc', 'newLabelType', 'newLabelHas', 'newLabelAnnotation']);
       });
+    setsublabelname(null);
   }
 
   // Handler function for final drawer (task creation)
@@ -329,7 +338,7 @@ const CreateTaskDrawer = Form.create()(function (props) {
           <Modal
             visible={modal}
             closable={true}
-            onCancel={() => setModal(false)}
+            onCancel={() => {setModal(false);setsublabelname(null);}}
             title="Add New Label"
             footer={[
               <Button key="submit" onClick={addLabel} type="primary">
@@ -432,11 +441,12 @@ const CreateTaskDrawer = Form.create()(function (props) {
             </Col>
             <Col span={24}>
               <List
+
                 dataSource={labels}
                 renderItem={item => (
-                  <List.Item key={item.name} >
-                    <List.Item.Meta title={item.name} description={item.description} />
-                    {item.label_type}
+                  <List.Item actions={[<a onClick={()=>{setsublabelname(item.name);setModal(true)}}>ADD SUBLABEL</a>,<a type="danger">DELETE</a>]} key={item.name} >
+                    <List.Item.Meta title={item.name} description={item.label_type} />
+                    <div>{item.description}</div>
                   </List.Item>
                 )}
               />
