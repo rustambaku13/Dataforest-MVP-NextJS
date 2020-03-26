@@ -33,8 +33,7 @@ const { TabPane } = Tabs;
 // Disable days before today
 const disabledDate = (current) => current && current < moment().startOf('day');
 
-function Tasks({ allTasks, myTasks }) {
-  console.log({ allTasks, myTasks });
+function Tasks({ allTasks, myTasks }) {  
   const [category, setCategory] = useState('image');
   const [tab, setTab] = useState('public');
   const [drawer, setDrawer] = useState(false);
@@ -112,7 +111,8 @@ function Tasks({ allTasks, myTasks }) {
               justifyContent: 'space-between'
             }}>
             <h3>Search Results</h3>
-            <Button onClick={() => setDrawer(true)} type="primary" size="large">CREATE TASK</Button>
+            {/* <Button onClick={() => setDrawer(true)} type="primary" size="large">CREATE TASK</Button> */}
+            <Link href="task/add"><a><Button>CREATE TASK</Button></a></Link>
           </div>
           <Tabs activeKey={tab} onChange={key => setTab(key)}>
             <TabPane tab="PUBLIC TASKS" key="public">

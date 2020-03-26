@@ -1,0 +1,99 @@
+$textGray:#464646;
+$lightBlue:#1a9ce5;
+$whitesmoke:whitesmoke;
+$textBlue:#27689c;
+$textCyan:#279c96;
+$border:lightgray;
+$xs: '480px';
+$sm: '576px';
+$md: '768px';
+$lg: '992px';
+$xl: '1200px';
+$xxl: '1600px';
+$elevate1: 0 0 5px 1px lightgray;  
+
+// ------------VARIABLES -----------
+*{
+    font-family: 'IBM Plex Sans', sans-serif;
+    
+}
+h1,h2,h3,h4,h5,h6{
+    color:$textGray;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style-type: none;
+}
+.text{
+    color:$textGray;
+}
+.blue-light-text{
+    color:$lightBlue;
+}
+.cyan-text{
+    color:$textCyan;
+}
+
+.circular-button{
+    border:0;
+    box-shadow: none;
+    font-weight: 600;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.circular-button-large{
+    border:0;
+    padding-top:3px;
+    box-shadow: none;
+    font-weight: 600;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.circular-button-extra-large{
+    border:0;
+    padding-top:3px;
+    height: 60px;
+    // font-size:1.1em;
+    padding:1.3rem 2.5rem;
+    box-shadow: none;
+    font-weight: 600;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+.dt-search {
+    input{
+        padding:1.5rem 1rem;
+    }
+}
+.tags{
+    
+    .ant-tag{
+        margin-right:5px;
+        // background-color: rgba(184, 96, 96, 0.918);
+        // color:white;
+        border:1px solid $border;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        padding:3px 11px;
+        cursor: pointer;
+        &:hover{
+            background-color: $whitesmoke;
+
+        }
+    }
+}
+.dt-motto-font {
+    font-size: 2.4em;
+    font-weight: bold;
+    color: $textBlue;
+}

@@ -1,6 +1,10 @@
+@import "./style.scss";
 .signup-page {
-  height: 100%;
-  width: 100%;
+  .ant-form-item{
+    input{
+      padding:1.2rem;
+    }
+  }
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +13,7 @@
   .signup-container {
     width: 100%;
     max-width: 900px;
-    margin-top: 64px;
+    box-shadow: $elevate1;
     margin-bottom: 64px;
 
     > form {
@@ -38,7 +42,7 @@
     .credentials {
       width: 60%;
       padding: 25px 75px;
-      background: #25283f;
+      background: $lightBlue;
 
       .logo {
         text-align: center;

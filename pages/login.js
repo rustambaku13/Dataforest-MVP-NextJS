@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Meta from '../components/Meta';
 import Router from 'next/router';
-import { Form, Input, Icon, Tooltip, Button, message } from 'antd';
+import { Form, Input, Icon, Tooltip, Button, message,Row } from 'antd';
 import * as validators from '../helpers/formValidation';
 import { setAuthUser } from '../actions';
 import { login, getUserInfoByToken } from '../services/user';
@@ -62,11 +62,14 @@ function Login(props) {
 
       <div className="login-page">
         <div className="login-container">
-          <Link href="/">
+          <h2 style={{"textAlign":"center",fontWeight:"600",fontSize:"1.8em"}}>Welcome</h2>
+          
             <div className="logo">
+            <Link href="/">
               <img src="/static/assets/LOGO2.png" height="70" style={{ cursor: 'pointer' }} />
+              </Link>
             </div>
-          </Link>
+          
           <Form onSubmit={handleSubmit}>
             <div className="login-form">
               <FormItem
@@ -121,11 +124,11 @@ function Login(props) {
             <div style={{ textAlign: 'right' }}>
               <Link href="forgot-password"><a style={{ fontSize: '1.1em', color: '#007bff' }}>Forgot your password?</a></Link>
             </div>
-            <div style={{ marginTop: '1rem', marginBottom: '1rem' }}>
-              <Button type="primary" htmlType="submit" loading={loading}>LOG IN</Button>
-            </div>
+            <Row type='flex' style={{"margin":"2rem 0 0.5rem 0","width":"100%"}} justify='center'>
+              <Button style={{paddingLeft:"1.5rem",paddingRight:"1.5rem"}} size="large" className="circular-button-large" type="primary" htmlType="submit" loading={loading}>LOG IN</Button>
+            </Row>
           </Form>
-          <p style={{ color: 'white', fontSize: '1.2em' }}>
+          <p style={{  textAlign:"center",fontSize: '1em' }}>
             Don't have an account? <Link href="/signup"><a style={{ color: '#007bff' }}>SIGN UP</a></Link>
           </p>
         </div>

@@ -1,0 +1,44 @@
+.add-task-container{
+    height:600px;
+    box-shadow: 0 0 5px 1px lightgray;
+    overflow: hidden;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    margin-top:70px;
+}
+.left{
+    padding:1rem 0;
+    
+    flex:0 0 200px;
+    @media screen  and (max-width:'576px'){
+        flex:0 0 100px;
+    }
+    background-color:#1a9ce5;
+  
+    
+}
+.right{
+    flex:1;
+    overflow: hidden;
+    .ant-tabs-bar{
+        display: none;
+    }
+    .next{
+        position: absolute;
+        bottom:0;
+        right:1rem;
+    }
+    .ant-tabs-content{
+        height:"100%";
+        width:"100%";
+    }
+    .image-preview{
+        margin:0 auto;
+        background:rgb(177, 177, 177);
+        height:270px;
+        max-width:100%;
+        
+    }
+}

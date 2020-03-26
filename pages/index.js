@@ -2,110 +2,93 @@ import React from 'react';
 import Link from 'next/link';
 import Meta from '../components/Meta';
 import '../static/styles/index.scss';
-
+import {Finance,Invest,SearchIcon,TaskAdIcon,DataTree,DataForest} from '../components/Icons';
+import {Row,Col, Input, Card,Tag,Button,Icon} from 'antd';
+const { Search } = Input;
 const Home = () => (
   <div>
     <Meta
       title='Dataforest: Your Single Venue for the Data that you need!'
       description='Collect data & Sell your data'
     />
-    <section className="home_banner_area">
-      <div className="banner_inner d-flex align-items-center">
-        <div className="overlay" />
-        <div style={{ width: "100%", paddingRight: 15, paddingLeft: 15, marginRight: "auto", marginLeft: "auto"}}>
-          <div className="row">
-            <div className="col-lg-6 offset-lg-6 col-xl-5 offset-xl-7">
-              <div className="banner_content">
-                <h3 style={{ color: 'ghostwhite' }}>Collect Data &amp;<br />Sell your data</h3>
-                <p style={{ color: 'ghostwhite' }}>In Dataforest you can find any kind of data, just by creating personalized task &amp; Sell your data by creating your own Data Tree </p>
-                <Link href='/tasks'><a className="banner_btn">Start Now<span className="ti-arrow-right" /></a></Link>
-              </div>
-            </div>
+    <section className="banner-section">
+      <h1 className="dt-motto-font" style={{textAlign:"center",marginTop:"80px"}}>Your Single Shop for AI demands</h1>
+      <Row>
+        <Col lg={{span:16,offset:4}}>
+          <Search size='large' className="dt-search" placeholder="Search Now"/>
+          <div style={{marginTop:"0.5rem"}} className="tags">
+            <Tag>Datasets</Tag>
+            <Tag>Tasks</Tag>
+            <Tag>Discussions</Tag>
+            <Tag>Models</Tag>
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>                 
+      <img className="img-bottom" src="../static/assets/wave.svg" />
     </section>
-    <section className="offer">
-      <div className="container">
-        <div className="section-intro mt-5  text-center">
-          <h2 className="section-intro__title">What we offer?</h2>
-          <p className="section-intro__subtitle">Dataforest offers you a Unique platform where you can order any kind of data for your personalized needs &amp; provides a way to sell your data in a fun way to earn money.</p>
-        </div>
-        <div className="container">
-          <div uk-scrollspy="target: > div; cls: uk-animation-fade; delay: 500" className="row">
-            <div className="col-lg-4">
-              <div className="card card-feature text-center text-lg-left mb-4 mb-lg-0">
-                <span className="card-feature__icon">
-                  <i className="ti-star" />
-                </span>
-                <h3 className="card-feature__title">Personalized Data</h3>
-                <p className="card-feature__subtitle">In Dataforest one can post a task to gather any sort of data with any kind of labels alongside. We will prepare and pack the data ready for your usage. </p>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card card-feature text-center text-lg-left mb-4 mb-lg-0">
-                <span className="card-feature__icon">
-                  <i className="ti-check" />
-                </span>
-                <h3 className="card-feature__title">Intuitive Design</h3>
-                <p className="card-feature__subtitle">Our goal in Dataforest is to minimize your headache while collecting data for your projects. Our Website and App are made increadibly easy-to-use for that purpose.
-                    </p>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="card card-feature text-center text-lg-left mb-4 mb-lg-0">
-                <span className="card-feature__icon">
-                  <i className="ti-money" />
-                </span>
-                <h3 className="card-feature__title">Make Money</h3>
-                <p className="card-feature__subtitle">Dataforest provides you an Interactive &amp; Fun way to sell your data and make money. Also you can join our team of Data Validators and start earning on validating data.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <div class="logo_line_horizontal"></div>
-          <section class="motto_section container">
-              
-              <h1 class="motto text-center">Your Single Venue for all the Data that you need!</h1>
-          </section>
-          <div class="logo_line_horizontal"></div> */}
-      <section style={{ boxShadow: '0 2px 12px rgba(0,0,0,1)' }} className="feature-area area-padding bg_one">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="offset-lg-6 col-lg-6">
-              <div className="area-heading light">
-                <h4>Easy to Use <br />Mobile Application</h4>
-                <p>Proceed to our Easy-to-use, Intuitive Application and start building your Data Tree right now!</p>
-              </div>
-              <div className="row">
-                <div className="col-">
-                  <div className="single-feature d-flex">
-                    <div className="feature-icon" style={{ lineHeight: '113px' }}>
-                      <i className="tree" />
-                    </div>
-                    <div className="single-feature-content">
-                      <h5>Build your Data Forest</h5>
-                      <p>Data Trees are manifests of your Data. The more data you upload the Larger you forest! The more you label you data the better your trees Grow!</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-">
-                  <div className="single-feature d-flex">
-                    <div className="feature-icon" style={{ lineHeight: '113px' }}>
-                      <i className="online-shop" />
-                    </div>
-                    <div className="single-feature-content">
-                      <h5>Sell your data</h5>
-                      <p>You can sell your data directly to any tasks. Additionaly, our algorithm will automatically gather sellable data from your Data Forest and make you money.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section className="features-section">
+        <Row type='flex' justify='center'>
+          <Col style={{maxWidth:"700px"}}>
+            <h1 style={{textAlign:"center",color:"white",fontSize:"2.4em",fontWeight:"bold"}}>About Dataforest</h1>
+            <h2 style={{textAlign:"center",color:"white"}}>Dataforest is a data marketplace that is powered by the crowdsource. Here you can find ready datasets and solutions as well as sell them by contributing to tasks </h2>
+          </Col>
+        </Row>
+        <Row className="cards">
+          <Col lg={{span:18,offset:3}}>
+            <Row type='flex' justify="space-between">
+           <Col  className="card">
+                  <Row  align='middle' type="flex">
+                      <Col style={{"flex":"0 0 120px",marginRight:"15px"}}>
+                        <Invest style={{"width":"100%"}}/>
+                      </Col>
+                      <Col style={{flex:1,maxWidth:"290px"}}>
+                        <h2 style={{"fontFamily":"bold"}}>Earn Money</h2>
+                        <p className="text">With Dataforest you can earn money by selling & reselling data, datasets, models through the tasks. Also, You can build your own Data Tree and generate money effortlessly.</p>
+                      </Col>
+                  </Row>
+              </Col>   
+                <Col  className="card">
+                  <Row  align='middle' type="flex">
+                      <Col style={{"flex":"0 0 120px",marginRight:"15px"}}>
+                        <SearchIcon style={{"width":"100%"}}/>
+                      </Col>
+                      <Col style={{flex:1,maxWidth:"290px"}}>
+                        <h2 style={{"fontFamily":"bold"}}>Find Data & Solutions</h2>
+                        <p className="text">Explore our marketplace for ready datasets, trained AI models and ready solutions in the discussions. </p>
+                      </Col>
+                  </Row>
+              </Col>                 
+            </Row>
+            <Row  type='flex' justify="space-between">
+            <Col style={{marginTop:"30px"}} className="card">
+                  <Row  align='middle' type="flex">
+                      <Col style={{"flex":"0 0 100px",marginRight:"15px"}}>
+                        <TaskAdIcon style={{"width":"100%"}}/>
+                      </Col>
+                      <Col style={{flex:1,maxWidth:"290px"}}>
+                        <h2 style={{"fontFamily":"bold"}}>Create Task</h2>
+                        <p className="text">In case if you couldn't find what you need you have the option to create a task and crowdsource it. You can resell the obtained item and make money as well. </p>
+                      </Col>
+                  </Row>
+                </Col>  
+                <Col style={{marginTop:"30px"}} className="card">
+                  <Row  align='middle' type="flex">
+                      <Col style={{"flex":"0 0 120px",marginRight:"15px"}}>
+                        <DataTree style={{"width":"100%"}}/>
+                      </Col>
+                      <Col style={{flex:1,maxWidth:"290px"}}>
+                        <h2 style={{"fontFamily":"bold"}}>Automate Earning</h2>
+                        <p className="text">All the items in your Data Tree can be set for automated selling. Such way whenever there is suitable task, your data will be dispatched and you will make profit.</p>
+                      </Col>
+                  </Row>
+              </Col>                              
+            </Row>            
+            <Row type='flex' justify='end'>
+              <Button style={{"marginTop":"30px",marginRight:"10px"}} className="circular-button-extra-large">Explore the Forest <Icon type="arrow-right"/></Button>
+            </Row>
+          </Col>
+          
+        </Row>  
     </section>
   </div>
 )

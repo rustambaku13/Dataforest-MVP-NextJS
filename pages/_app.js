@@ -13,6 +13,9 @@ import { setAuthUser } from '../actions';
 import Footer from '../components/Footer';
 import 'nprogress/nprogress.css';
 import 'antd/dist/antd.css';
+import '../static/styles/style.scss';
+import {Menu} from 'antd';
+import NavigationWhite from '../components/NavigationWhite';
 
 NProgress.configure({ showSpinner: false });
 
@@ -29,15 +32,17 @@ function MyApp({ Component, pageProps, store, token }) {
   }
 
   return (
-    <Provider store={store}>
+    <Provider store={store}>      
       <Head>
-        <link rel="stylesheet" href="/static/css/style.css" />
-        <link rel="stylesheet" href="/static/css/themify-icons.css" />
+        
+        <link rel="stylesheet" href="/static/css/themify-icons.css" />   
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:600&display=swap" rel="stylesheet"/>
+        
       </Head>
 
-      <Navigation />
+      <NavigationWhite />      
       <Component {...pageProps} />
-      <Footer />
+      {/* <Footer /> */}
     </Provider>
   )
 }

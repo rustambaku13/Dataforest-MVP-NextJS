@@ -146,7 +146,7 @@ function Signup(props) {
             <div className="credentials">
               <Link href="/">
                 <div className="logo">
-                  <img src="/static/assets/LOGO2.png" height="70" style={{ cursor: 'pointer' }} />
+                  <img src="/static/assets/logo_white.png" height="70" style={{ cursor: 'pointer' }} />
                 </div>
               </Link>
 
@@ -247,7 +247,7 @@ function Signup(props) {
                 <Button type="primary" htmlType="submit" loading={loading}>SIGN UP</Button>
               </div>
               <p style={{ color: 'white', fontSize: '1.2em' }}>
-                Have an account? <Link href="/login"><a style={{ color: '#007bff' }}>LOG IN</a></Link>
+                Have an account? <Link href="/login"><a style={{ color: "white"}}>LOG IN</a></Link>
               </p>
             </div>
           </Form>

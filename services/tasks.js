@@ -43,21 +43,9 @@ export async function getTaskByID(id) {
 }
 
 export async function createTask(task) {
-  const { title, description, price, quantity, task_type, deadline, extension, height, width, image_type, labels } = task;
+  // const { title, description, price, quantity, task_type, deadline, extension, height, width, image_type, labels } = task;
   try {
-    const { data } = await axios.post(`${base_url}/tasks/`, {
-      title,
-      description,
-      price,
-      quantity,
-      task_type,
-      deadline: moment(deadline).format('YYYY-MM-DD'),
-      extension,
-      height,
-      width,
-      image_type,
-      labels
-    });
+    const { data } = await axios.post(`${base_url}/tasks/`, task);
     return data;
   }
   catch (e) {
