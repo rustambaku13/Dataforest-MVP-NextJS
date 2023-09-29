@@ -1,3 +1,3 @@
 # Dataforest-MVP
-Front-end MVP for Dataforest startup (2019)
+Front-end MVP for Dataforest (2019)
 
